@@ -148,11 +148,25 @@ declare module 'astro:content' {
   collection: "news";
   data: any
 } & { render(): Render[".md"] };
+"website-launch.md": {
+	id: "website-launch.md";
+  slug: "website-launch";
+  body: string;
+  collection: "news";
+  data: any
+} & { render(): Render[".md"] };
 };
 "people": {
 "dr-jane-alvarez.md": {
 	id: "dr-jane-alvarez.md";
   slug: "dr-jane-alvarez";
+  body: string;
+  collection: "people";
+  data: any
+} & { render(): Render[".md"] };
+"dr-sergei-chuprov.md": {
+	id: "dr-sergei-chuprov.md";
+  slug: "dr-sergei-chuprov";
   body: string;
   collection: "people";
   data: any
@@ -166,8 +180,36 @@ declare module 'astro:content' {
   collection: "projects";
   data: any
 } & { render(): Render[".md"] };
+"project-1.md": {
+	id: "project-1.md";
+  slug: "project-1";
+  body: string;
+  collection: "projects";
+  data: any
+} & { render(): Render[".md"] };
+"project-2.md": {
+	id: "project-2.md";
+  slug: "project-2";
+  body: string;
+  collection: "projects";
+  data: any
+} & { render(): Render[".md"] };
+"project-3.md": {
+	id: "project-3.md";
+  slug: "project-3";
+  body: string;
+  collection: "projects";
+  data: any
+} & { render(): Render[".md"] };
 };
 "publications": {
+"chuprov-metacognitive-ai.md": {
+	id: "chuprov-metacognitive-ai.md";
+  slug: "chuprov-metacognitive-ai";
+  body: string;
+  collection: "publications";
+  data: any
+} & { render(): Render[".md"] };
 "learning-from-flow-data.md": {
 	id: "learning-from-flow-data.md";
   slug: "learning-from-flow-data";
