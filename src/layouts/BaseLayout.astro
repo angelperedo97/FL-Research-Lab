@@ -1,48 +1,87 @@
 ---
+import "../styles/global.css";
 const { title = 'FL Research Lab' } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | FL Research Lab</title>
     <meta name="description" content="FL Research Lab site for research, projects, publications, people, and news." />
   </head>
-  <body class="bg-page text-page min-h-screen">
-    <div class="max-w-7xl mx-auto">
-      <header class="sticky top-0 z-20 border-b border-slate-300/60 bg-white/85 backdrop-blur dark:border-slate-700/70 dark:bg-slate-950/95">
-        <div class="flex flex-wrap items-center gap-4 px-6 py-4">
-          <a href="/" class="font-semibold text-xl tracking-tight text-slate-900 dark:text-white">FL Research Lab</a>
-          <nav class="flex flex-wrap gap-2">
-            <a href="/" class="nav-link">Research</a>
-            <a href="/projects" class="nav-link">Projects</a>
-            <a href="/publications" class="nav-link">Publications</a>
-            <a href="/people" class="nav-link">People</a>
-            <a href="/news" class="nav-link">News</a>
-          </nav>
-          <button id="theme-toggle" class="p-2 rounded-full hover:bg-bg-soft transition-colors text-lg" aria-label="Toggle Dark Mode">
-            <span class="dark:hidden">🌙</span>
-            <span class="hidden dark:inline">☀️</span>
-          </button>
+  <body class="bg-bg text-text min-h-screen relative flex flex-col">
+    <div class="max-w-7xl w-full mx-auto flex-1 flex flex-col relative z-10">
+      
+      <header class="sticky top-0 z-20 border-b border-line bg-bg-elev/85 backdrop-blur">
+        <div class="flex items-center justify-between gap-4 px-6 py-4 w-full">
+          
+          <a href="/" class="font-bold text-xl tracking-tight text-text hover:text-rit-orange transition-colors">
+            FL Research Lab
+          </a>
+          
+          <div class="flex items-center gap-6">
+            <nav class="flex items-center gap-6 text-sm font-semibold text-text-dim">
+              <a href="/" class="hover:text-rit-orange transition-colors">Research</a>
+              <a href="/projects" class="hover:text-rit-orange transition-colors">Projects</a>
+              <a href="/publications" class="hover:text-rit-orange transition-colors">Publications</a>
+              <a href="/people" class="hover:text-rit-orange transition-colors">People</a>
+              <a href="/news" class="hover:text-rit-orange transition-colors">News</a>
+            </nav>
+            
+            <button id="theme-toggle" class="p-2 rounded-full bg-bg-soft hover:scale-105 border border-line transition-all text-base cursor-pointer flex items-center justify-center w-9 h-9" aria-label="Toggle Dark Mode">
+              <span class="dark-icon">🌙</span>
+              <span class="light-icon hidden">☀️</span>
+            </button>
+          </div>
+
         </div>
       </header>
-      <main class="px-6 py-10">
+
+      <main class="px-6 py-10 flex-1 relative z-10">
         <slot />
       </main>
+
+      <footer class="px-6 py-8 text-center text-xs text-text-faint border-t border-line">
+        &copy; {new Date().getFullYear()} FL Research Lab. Powered by Astro & Tailwind 4.
+      </footer>
+
     </div>
-    <script type="module">
-      const root = document.documentElement;
-      const saved = localStorage.getItem('theme');
-      const init = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      root.classList.toggle('dark', init === 'dark');
-      root.classList.toggle('light', init !== 'dark');
-      window.toggleTheme = () => {
-        const next = root.classList.contains('dark') ? 'light' : 'dark';
-        root.classList.toggle('dark', next === 'dark');
-        root.classList.toggle('light', next !== 'dark');
-        localStorage.setItem('theme', next);
+
+    <script is:inline>
+      const getTheme = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return 'light'; // Light metallic gray is our pristine default startup state
       };
+
+      const applyTheme = (theme) => {
+        // Maps the correct [data-theme] selector to trigger Tailwind 4 and the custom tokens
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        const darkIcon = document.querySelector('.dark-icon');
+        const lightIcon = document.querySelector('.light-icon');
+        
+        if (theme === 'dark') {
+          darkIcon?.classList.add('hidden');
+          lightIcon?.classList.remove('hidden');
+        } else {
+          darkIcon?.classList.remove('hidden');
+          lightIcon?.classList.add('hidden');
+        }
+      };
+
+      // Execution Loop on initial site render
+      const currentTheme = getTheme();
+      applyTheme(currentTheme);
+
+      // Simple Click handler that operates flawlessly across all components
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+        applyTheme(theme);
+      });
     </script>
   </body>
 </html>
