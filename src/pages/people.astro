@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
-const allPeople = await getCollection('people'); 
+const allPeople = await getCollection('people');
 
 // Sort so Dr. Chuprov is always first, the rest are alphabetical
 const sortedPeople = allPeople.sort((a, b) => {
@@ -15,10 +15,10 @@ const sortedPeople = allPeople.sort((a, b) => {
 
 <BaseLayout title="People">
   <section class="space-y-6">
-    <div class="card">
-      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Research team</p> [cite: 7]
-      <h1 class="section-heading mt-4">People</h1> [cite: 7]
-      <p class="mt-4 max-w-2xl text-slate-700 dark:text-slate-300">Discover the primary lab investigators, research staff, and contributors shaping the project portfolio.</p> [cite: 7]
+    <div class="card bg-[#0f172a] border border-slate-800">
+      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Research team</p>
+      <h1 class="section-heading mt-4 text-white">People</h1>
+      <p class="mt-4 max-w-2xl text-slate-300">Discover the primary lab investigators, research staff, and contributors shaping the project portfolio.</p>
     </div>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -32,21 +32,21 @@ const sortedPeople = allPeople.sort((a, b) => {
           .toUpperCase();
 
         return (
-          <article class="card-compact flex items-center gap-4">
+          <article class="p-4 bg-[#0f172a] border border-slate-800 rounded-2xl flex items-center gap-4">
             
             {/* Avatar or Initials */}
             {person.data.avatar ? (
-              <img src={person.data.avatar} alt={person.data.name} class="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-slate-200 dark:ring-slate-700" />
+              <img src={person.data.avatar} alt={person.data.name} class="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-slate-700" />
             ) : (
-              <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-orange-600 flex items-center justify-center text-xl font-serif font-bold shrink-0 ring-1 ring-slate-200 dark:ring-slate-800">
+              <div class="w-16 h-16 rounded-full bg-[#1e293b] text-orange-600 flex items-center justify-center text-xl font-serif font-bold shrink-0 ring-1 ring-slate-700">
                 {initials}
               </div>
             )}
             
             {/* Text Content */}
             <div>
-              <h2 class="text-lg font-semibold text-slate-900 dark:text-white">{person.data.name}</h2> [cite: 7]
-              <p class="text-sm text-orange-600">{person.data.role}</p> [cite: 8]
+              <h2 class="text-lg font-semibold text-white">{person.data.name}</h2>
+              <p class="text-sm text-orange-600">{person.data.role}</p>
             </div>
 
           </article>
