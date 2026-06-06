@@ -3,31 +3,33 @@
 
 @theme {
   /* Core UTRGV Brand Accents */
-  --color-rit-orange: #ee7624;       /* High-contrast UTRGV Orange for main components */
-  --color-rit-orange-text: #ff7a28;  /* Vibrant neon orange for text links over dark surfaces */
-  --color-rit-yellow: #f5f5f7;       
+  --color-rit-orange: #f05023;       /* Official UTRGV Primary Orange */
+  --color-rit-orange-text: #ff7a28;  
+  --color-rit-yellow: #646469;       
 
-  /* FIXED HIGH-CONTRAST DARK PALETTE (Inspired by MI@UTRGV Layout) */
-  --color-bg: #0b0f17;               /* Space Black / Midnight Backdrop */
-  --color-bg-elev: #161e2e;          /* Elevated Charcoal Core Cards (The main content panels) */
-  --color-bg-soft: #242f41;          /* Secondary accent block color */
-  --color-line: #374151;             /* Sharp division lines */
-  --color-text: #ffffff;             /* Pure crisp white text for excellent legibility */
-  --color-text-dim: #cbd5e1;         /* Readable silver-gray body text */
-  --color-text-faint: #94a3b8;       /* Meta-tags and dates */
+  /* MI@UTRGV INSPIRED HIGH-CONTRAST DARK PALETTE */
+  --color-bg: #0b0f17;               /* Deep Obsidian Background Space */
+  --color-bg-elev: #222b3a;          /* Premium Metallic Header/Card Gray */
+  --color-bg-soft: #161e2e;          /* Core structural content boxes */
+  --color-line: #374151;             
+  --color-text: #ffffff;             /* Pure white text for clear legibility */
+  --color-text-dim: #cbd5e1;         /* Bright gray secondary body text */
+  --color-text-faint: #94a3b8;       
 
   /* Typography */
   --font-display: "Instrument Serif", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Force the site container to default exclusively to the dark background token */
+/* Force global layout properties to maintain strict alignment */
 html, body {
   background-color: var(--color-bg) !important;
   color: var(--color-text) !important;
+  margin: 0;
+  padding: 0;
 }
 
-/* Enforce high-contrast text matching inside Markdown Prose summaries */
+/* Enforce readability overrides inside Markdown blocks */
 .prose {
   --tw-prose-body: var(--color-text-dim) !important;
   --tw-prose-headings: var(--color-text) !important;
@@ -36,14 +38,14 @@ html, body {
   --tw-prose-hr: var(--color-line) !important;
 }
 
-/* Ambient UTRGV tech-glow wash behind panels */
+/* Clean technical accent gradient wash */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse at top right, color-mix(in oklab, #ee7624 7%, transparent), transparent 50%),
-    radial-gradient(ellipse at bottom left, color-mix(in oklab, #161e2e 15%, transparent), transparent 60%);
+    radial-gradient(ellipse at top right, color-mix(in oklab, #f05023 6%, transparent), transparent 50%),
+    radial-gradient(ellipse at bottom left, color-mix(in oklab, #222b3a 15%, transparent), transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
