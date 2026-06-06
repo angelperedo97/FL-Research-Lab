@@ -3,28 +3,81 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
-const publications = await getCollection('publications');
+const allPublications = await getCollection('publications'); 
+
+// Sort publications by date (newest first)
+const sortedPublications = allPublications.sort((a, b) => {
+  return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
+});
+
+// Control how many show up before the "See more" button
+const initialCount = 5;
+const visiblePubs = sortedPublications.slice(0, initialCount);
+const hiddenPubs = sortedPublications.slice(initialCount);
 ---
+
 <BaseLayout title="Publications">
   <section class="space-y-6">
     <div class="card">
-      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Public record</p>
-      <h1 class="section-heading mt-4">Publications</h1>
-      <p class="mt-4 max-w-2xl text-slate-700 dark:text-slate-300">Research outputs from the FL Research Lab, including conference articles, reports, and technical notes.</p>
+      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Public record</p> [cite: 2]
+      <h1 class="section-heading mt-4">Publications</h1> [cite: 2]
+      <p class="mt-4 max-w-2xl text-slate-700 dark:text-slate-300">Research outputs from the FL Research Lab, including conference articles, reports, and technical notes.</p> [cite: 2]
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2">
-      {publications.map((publication) => (
-        <article class="card-compact">
-          <h2 class="text-xl font-semibold">{publication.data.title}</h2>
-          <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{publication.data.date}</p>
-          <p class="mt-3 text-slate-600 dark:text-slate-400">{publication.data.summary}</p>
-          {publication.data.authors ? (
-            <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">Authors: {publication.data.authors.filter(Boolean).map((author) => author?.data?.name ?? 'Unknown').join(', ')}</p>
-          ) : null}
-          {publication.data.link ? <a class="mt-4 inline-flex text-sm font-semibold text-orange-600" href={publication.data.link}>View publication</a> : null}
+    <div class="space-y-4">
+      {visiblePubs.map((publication) => (
+        <article class="card-compact flex flex-col md:flex-row items-start gap-6">
+          <div class="text-4xl font-serif text-orange-600 shrink-0">
+            {new Date(publication.data.date).getFullYear() || 'Year'}
+          </div>
+          <div>
+            <p class="text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-1">
+              {publication.data.venue || 'Publication'}
+            </p>
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-1">{publication.data.title}</h2> [cite: 2]
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {publication.data.authors ? publication.data.authors.filter(Boolean).map((author) => author?.data?.name ?? 'Unknown').join(', ') : ''} [cite: 3, 4]
+            </p>
+          </div>
         </article>
       ))}
+
+      <div id="extra-pubs" class="hidden space-y-4">
+        {hiddenPubs.map((publication) => (
+          <article class="card-compact flex flex-col md:flex-row items-start gap-6">
+            <div class="text-4xl font-serif text-orange-600 shrink-0">
+              {new Date(publication.data.date).getFullYear() || 'Year'}
+            </div>
+            <div>
+              <p class="text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400 uppercase mb-1">
+                {publication.data.venue || 'Publication'}
+              </p>
+              <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-1">{publication.data.title}</h2> [cite: 2]
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                 {publication.data.authors ? publication.data.authors.filter(Boolean).map((author) => author?.data?.name ?? 'Unknown').join(', ') : ''} [cite: 3, 4]
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {hiddenPubs.length > 0 && (
+        <button id="show-more-btn" class="mt-4 px-6 py-2 text-sm font-semibold text-orange-600 border border-orange-600 rounded-full hover:bg-orange-600 hover:text-white transition-colors">
+          See all publications
+        </button>
+      )}
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const btn = document.getElementById('show-more-btn');
+  const extraContent = document.getElementById('extra-pubs');
+
+  if (btn && extraContent) {
+    btn.addEventListener('click', () => {
+      extraContent.classList.remove('hidden');
+      btn.style.display = 'none';
+    });
+  }
+</script>
