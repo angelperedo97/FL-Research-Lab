@@ -1,108 +1,49 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --bg-page: #e2e8f0;
-  --card-bg: #ffffff;
-  --text-page: #111827;
-  --muted: #475569;
-  --accent: #EE7624;
-  --border: #cbd5e1;
-  color-scheme: light;
+@theme {
+  /* Core UTRGV Brand Accents */
+  --color-rit-orange: #ee7624;       /* High-contrast UTRGV Orange for main components */
+  --color-rit-orange-text: #ff7a28;  /* Vibrant neon orange for text links over dark surfaces */
+  --color-rit-yellow: #f5f5f7;       
+
+  /* FIXED HIGH-CONTRAST DARK PALETTE (Inspired by MI@UTRGV Layout) */
+  --color-bg: #0b0f17;               /* Space Black / Midnight Backdrop */
+  --color-bg-elev: #161e2e;          /* Elevated Charcoal Core Cards (The main content panels) */
+  --color-bg-soft: #242f41;          /* Secondary accent block color */
+  --color-line: #374151;             /* Sharp division lines */
+  --color-text: #ffffff;             /* Pure crisp white text for excellent legibility */
+  --color-text-dim: #cbd5e1;         /* Readable silver-gray body text */
+  --color-text-faint: #94a3b8;       /* Meta-tags and dates */
+
+  /* Typography */
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.dark {
-  --bg-page: #090d16;
-  --card-bg: #111827;
-  --text-page: #f8fafc;
-  --muted: #94a3b8;
-  --border: #334155;
-  color-scheme: dark;
+/* Force the site container to default exclusively to the dark background token */
+html, body {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
 }
 
-html {
-  background: var(--bg-page);
+/* Enforce high-contrast text matching inside Markdown Prose summaries */
+.prose {
+  --tw-prose-body: var(--color-text-dim) !important;
+  --tw-prose-headings: var(--color-text) !important;
+  --tw-prose-links: var(--color-rit-orange-text) !important;
+  --tw-prose-bold: var(--color-text) !important;
+  --tw-prose-hr: var(--color-line) !important;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg-page);
-  color: var(--text-page);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-::selection {
-  background: rgba(238, 118, 36, 0.25);
-  color: var(--text-page);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-}
-
-.nav-link {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-page);
-  border: 1px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.nav-link:hover,
-.nav-link:focus-visible {
-  color: #1f2937;
-  background: rgba(238, 118, 36, 0.08);
-  border-color: rgba(238, 118, 36, 0.2);
-}
-
-.dark .nav-link:hover,
-.dark .nav-link:focus-visible {
-  color: white;
-  background: rgba(238, 118, 36, 0.14);
-  border-color: rgba(238, 118, 36, 0.24);
-}
-
-.section-heading {
-  font-size: clamp(2rem, 2.5vw, 2.75rem);
-  font-weight: 800;
-  line-height: 1.05;
-}
-
-.card {
-  padding: 2rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 1.5rem;
-}
-
-.card-compact {
-  padding: 1.5rem;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 1.25rem;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-  background: rgba(238, 118, 36, 0.12);
-  color: var(--accent);
-  font-size: 0.82rem;
-  font-weight: 700;
+/* Ambient UTRGV tech-glow wash behind panels */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top right, color-mix(in oklab, #ee7624 7%, transparent), transparent 50%),
+    radial-gradient(ellipse at bottom left, color-mix(in oklab, #161e2e 15%, transparent), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
 }
