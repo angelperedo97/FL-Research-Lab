@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
 
-const allNews = await getCollection('news'); [cite: 9]
+const allNews = await getCollection('news');
 
 // Sort news by date (newest first)
 const sortedNews = allNews.sort((a, b) => {
@@ -14,30 +14,30 @@ const sortedNews = allNews.sort((a, b) => {
 <BaseLayout title="News">
   <section class="space-y-6">
     <div class="card">
-      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Lab updates</p> 
-      <h1 class="section-heading mt-4">News</h1> 
-      <p class="mt-4 max-w-2xl text-slate-700 dark:text-slate-300">Announcements, milestones, and short updates from the FL Research Lab.</p> 
+      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Lab updates</p>
+      <h1 class="section-heading mt-4">News</h1>
+      <p class="mt-4 max-w-2xl text-slate-700 dark:text-slate-300">Announcements, milestones, and short updates from the FL Research Lab.</p>
     </div>
 
-    <div class="space-y-4">
-      {sortedNews.map((item) => {
-        // Format the date to match e.g. "MAY 22, 2026"
-        const dateObj = new Date(item.data.date);
-        const formattedDate = dateObj.toLocaleDateString('en-US', {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric'
-        }).toUpperCase();
+    <div class="p-6 bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+      <ul class="list-disc marker:text-orange-600 pl-5 space-y-3">
+        {sortedNews.map((item) => {
+          // Keep a clean YYYY-MM-DD or standard short date format
+          const dateObj = new Date(item.data.date);
+          const formattedDate = dateObj.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          });
 
-        return (
-          <article class="card-compact">
-            <p class="text-xs font-semibold tracking-widest text-orange-600 mb-2">{formattedDate}</p>
-            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{item.data.title}</h2> 
-            <p class="text-slate-600 dark:text-slate-400">{item.data.summary}</p> [cite: 11]
-            {item.data.link ? <a class="mt-4 inline-flex text-sm font-semibold text-orange-600 hover:underline" href={item.data.link}>Read more</a> : null} [cite: 11]
-          </article>
-        );
-      })}
+          return (
+            <li class="text-sm text-slate-600 dark:text-slate-400">
+              <span class="font-semibold text-slate-900 dark:text-white mr-2">{formattedDate}:</span>
+              {item.data.title}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   </section>
 </BaseLayout>
