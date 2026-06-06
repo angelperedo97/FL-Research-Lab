@@ -11,9 +11,9 @@ const { title = 'FL Research Lab' } = Astro.props;
     <meta name="description" content="FL Research Lab site for research, projects, publications, people, and news." />
   </head>
   <body class="bg-bg text-text min-h-screen relative flex flex-col antialiased">
-    <div class="max-w-7xl w-full mx-auto flex-1 flex flex-col relative z-10">
+    <div class="flex items-center justify-between gap-4 max-w-7xl mx-auto w-full">
       
-      <header class="sticky top-0 z-20 border-b border-line bg-bg/90 backdrop-blur">
+      <header class="sticky top-0 z-20 border-b-2 border-rit-orange bg-bg-elev px-6 py-4 w-full">
         <div class="flex items-center justify-between gap-4 px-6 py-5 w-full">
           
           <a href="/" class="font-extrabold text-xl tracking-tight text-text hover:text-rit-orange transition-colors">
@@ -21,7 +21,7 @@ const { title = 'FL Research Lab' } = Astro.props;
           </a>
           
           <nav class="flex items-center gap-6 text-sm font-semibold text-text-dim">
-            <a href="/" class="hover:text-rit-orange transition-colors">Research</a>
+            <a href="/" class="hover:text-rit-orange transition-colors">Home</a>
             <a href="/projects" class="hover:text-rit-orange transition-colors">Projects</a>
             <a href="/publications" class="hover:text-rit-orange transition-colors">Publications</a>
             <a href="/people" class="hover:text-rit-orange transition-colors">People</a>
