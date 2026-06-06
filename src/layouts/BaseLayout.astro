@@ -21,8 +21,9 @@ const { title = 'FL Research Lab' } = Astro.props;
             <a href="/people" class="nav-link">People</a>
             <a href="/news" class="nav-link">News</a>
           </nav>
-          <button onclick="toggleTheme()" class="ml-auto rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:border-orange-500 hover:text-orange-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:border-orange-500">
-            Toggle theme
+          <button id="theme-toggle" class="p-2 rounded-full hover:bg-bg-soft transition-colors text-lg" aria-label="Toggle Dark Mode">
+            <span class="dark:hidden">🌙</span>
+            <span class="hidden dark:inline">☀️</span>
           </button>
         </div>
       </header>
