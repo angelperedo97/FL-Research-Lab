@@ -15,7 +15,7 @@ const sortedPeople = allPeople.sort((a, b) => {
 
 <BaseLayout title="People">
   <section class="space-y-6">
-    <div class="card bg-[#0f172a] border border-slate-800">
+    <div class="mb-8">
       <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Research team</p>
       <h1 class="section-heading mt-4 text-white">People</h1>
       <p class="mt-4 max-w-2xl text-slate-300">Discover the primary lab investigators, research staff, and contributors shaping the project portfolio.</p>
@@ -23,8 +23,9 @@ const sortedPeople = allPeople.sort((a, b) => {
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {sortedPeople.map((person) => {
-        // Automatically extract up to 2 initials
-        const initials = person.data.name
+        // Strip "Dr. ", "Prof. ", etc. before extracting initials
+        const cleanName = person.data.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.)\s+/i, '');
+        const initials = cleanName
           .split(' ')
           .map(n => n[0])
           .join('')
