@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+const news = await getCollection('news');
+---
+<BaseLayout title="News">
+  <section class="space-y-6">
+    <div class="card">
+      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Lab updates</p>
+      <h1 class="section-heading mt-4">News</h1>
+      <p class="mt-4 max-w-2xl text-slate-700 dark:text-slate-300">Announcements, milestones, and short updates from the FL Research Lab.</p>
+    </div>
+
+    <div class="space-y-4">
+      {news.map((item) => (
+        <article class="card-compact">
+          <h2 class="text-xl font-semibold">{item.data.title}</h2>
+          <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{item.data.date}</p>
+          <p class="mt-3 text-slate-600 dark:text-slate-400">{item.data.summary}</p>
+          {item.data.link ? <a class="mt-4 inline-flex text-sm font-semibold text-orange-600" href={item.data.link}>Read more</a> : null}
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

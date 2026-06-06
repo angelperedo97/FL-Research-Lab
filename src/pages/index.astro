@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import '../styles/global.css';
+
+const people = await getCollection('people');
+const projects = await getCollection('projects');
+const publications = await getCollection('publications');
+const news = await getCollection('news');
+---
+<BaseLayout title="Research">
+  <section class="space-y-8">
+    <div class="card">
+      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">UTRGV Orange accent</p>
+      <h1 class="section-heading mt-4">FL Research Lab</h1>
+      <p class="mt-6 max-w-2xl leading-8 text-slate-700 dark:text-slate-300">A lightweight Astro site for FL Research Lab. Explore the lab’s research directions, active projects, publications, people, and news updates.</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <article class="card-compact">
+        <h2 class="text-xl font-semibold">Recent projects</h2>
+        <p class="mt-2 text-slate-600 dark:text-slate-400">Explore active lab work and experimental collaborations.</p>
+        <ul class="mt-4 space-y-3">
+          {projects.map((project) => (
+            <li class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 text-sm dark:border-slate-700/70 dark:bg-slate-950/95">
+              <strong>{project.data.title}</strong><br />
+              <span class="text-slate-600 dark:text-slate-400">{project.data.summary}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="card-compact">
+        <h2 class="text-xl font-semibold">Latest news</h2>
+        <p class="mt-2 text-slate-600 dark:text-slate-400">Stay current with announcements from the lab.</p>
+        <ul class="mt-4 space-y-3">
+          {news.map((item) => (
+            <li class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 text-sm dark:border-slate-700/70 dark:bg-slate-950/95">
+              <strong>{item.data.title}</strong><br />
+              <span class="text-slate-600 dark:text-slate-400">{item.data.summary}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="card-compact">
+        <p class="text-sm uppercase tracking-[0.4em] text-orange-600">People</p>
+        <p class="mt-3">{people.length} profile{people.length === 1 ? '' : 's'} available.</p>
+      </div>
+      <div class="card-compact">
+        <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Publications</p>
+        <p class="mt-3">{publications.length} publication{publications.length === 1 ? '' : 's'} listed.</p>
+      </div>
+      <div class="card-compact">
+        <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Projects</p>
+        <p class="mt-3">{projects.length} active project{projects.length === 1 ? '' : 's'}.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
