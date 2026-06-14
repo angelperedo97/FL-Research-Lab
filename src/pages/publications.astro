@@ -40,7 +40,11 @@ const hiddenPubs = sortedPublications.slice(initialCount);
                 {publication.data.title}
               </h2>
               <p class="text-sm text-orange-600/90 font-medium">
-                {publication.data.authors ? publication.data.authors.join(', ') : ''}
+                {
+                  publication.data.authors 
+                    ? (Array.isArray(publication.data.authors) ? publication.data.authors.join(', ') : publication.data.authors)
+                    : ''
+                }
               </p>
             </div>
           </div>
@@ -74,7 +78,11 @@ const hiddenPubs = sortedPublications.slice(initialCount);
                   {publication.data.title}
                 </h2>
                 <p class="text-sm text-orange-600/90 font-medium">
-                  {publication.data.authors ? publication.data.authors.join(', ') : ''}
+                  {
+                    publication.data.authors 
+                      ? (Array.isArray(publication.data.authors) ? publication.data.authors.join(', ') : publication.data.authors)
+                      : ''
+                  }
                 </p>
               </div>
             </div>
