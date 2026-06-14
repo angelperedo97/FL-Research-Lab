@@ -1,11 +1,18 @@
 import { defineCollection, z, reference } from 'astro:content';
 
 const people = defineCollection({
-  schema: z.object({
+  schema: ({ image }) => z.object({
     name: z.string(),
     role: z.string(),
     bio: z.string().optional(),
+    email: z.string().email().optional(),
     website: z.string().url().optional(),
+    linkedin: z.string().url().optional(),
+    scholar: z.string().url().optional(),
+    
+    avatar: image().optional(),
+    
+    cv: z.string().optional(),
   }),
 });
 
