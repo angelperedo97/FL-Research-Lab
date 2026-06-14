@@ -1,57 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-// 1. Import the Image component for processing the local avatar assets
-import { Image } from 'astro:assets'; 
 import '../styles/global.css';
 
-const allPeople = await getCollection('people'); // 
+const allPeople = await getCollection('people');
 
 // Sort so Dr. Chuprov is always first, the rest are alphabetical
-const sortedPeople = allPeople.sort((a, b) => { // [cite: 35]
-  if (a.data.name === "Dr. Sergei Chuprov") return -1; // [cite: 35]
-  if (b.data.name === "Dr. Sergei Chuprov") return 1; // [cite: 35]
-  return a.data.name.localeCompare(b.data.name); // [cite: 35]
+const sortedPeople = allPeople.sort((a, b) => {
+  if (a.data.name === "Dr. Sergei Chuprov") return -1;
+  if (b.data.name === "Dr. Sergei Chuprov") return 1;
+  return a.data.name.localeCompare(b.data.name);
 });
 ---
 
 <BaseLayout title="People">
   <section class="space-y-6">
     <div class="mb-8">
-      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Research team</p> <h1 class="section-heading mt-4 text-white">People</h1> <p class="mt-4 max-w-2xl text-slate-300">Discover the primary lab investigators, research staff, and contributors shaping the project portfolio.</p> </div>
+      <p class="text-sm uppercase tracking-[0.4em] text-orange-600">Research team</p>
+      <h1 class="section-heading mt-4 text-white">People</h1>
+      <p class="mt-4 max-w-2xl text-slate-300">Discover the primary lab investigators, research staff, and contributors shaping the project portfolio.</p>
+    </div>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"> {sortedPeople.map((person) => { // [cite: 36]
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {sortedPeople.map((person) => {
         // Strip "Dr. ", "Prof. ", etc. before extracting initials
-        const cleanName = person.data.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.)\s+/i, ''); // [cite: 36]
-        const initials = cleanName // [cite: 37]
-          .split(' ') // [cite: 37]
-          .map(n => n[0]) // [cite: 37]
-          .join('') // [cite: 37]
-          .substring(0, 2) // [cite: 37]
-          .toUpperCase(); // [cite: 37]
+        const cleanName = person.data.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.)\s+/i, '');
+        const initials = cleanName
+          .split(' ')
+          .map(n => n[0])
+          .join('')
+          .substring(0, 2)
+          .toUpperCase();
 
         return (
-          // 2. Changed to 'flex-col justify-between' so links stick nicely to the bottom
-          <article class="p-4 bg-[#0f172a] border border-slate-800 rounded-2xl flex flex-col justify-between gap-4"> {/* Top Container for Avatar + Text Info */}
+          // Changed layout to flex-col justify-between to keep social rows perfectly uniform
+          <article class="p-4 bg-[#0f172a] border border-slate-800 rounded-2xl flex flex-col justify-between gap-4">
+            
+            {/* Top section: Profile Info */}
             <div class="flex items-center gap-4">
-              {/* Avatar or Initials */}
+              {/* Avatar or Initials using safe standard HTML elements */}
               {person.data.avatar ? (
-                // 1. Replaced raw <img> with Astro's <Image /> component for local assets
-                <Image 
+                <img 
                   src={person.data.avatar} 
                   alt={person.data.name} 
                   class="w-16 h-16 rounded-full object-cover shrink-0 ring-1 ring-slate-700" 
                 />
               ) : (
-                <div class="w-16 h-16 rounded-full bg-[#1e293b] text-orange-600 flex items-center justify-center text-xl font-serif font-bold shrink-0 ring-1 ring-slate-700"> {initials} </div> )}
+                <div class="w-16 h-16 rounded-full bg-[#1e293b] text-orange-600 flex items-center justify-center text-xl font-serif font-bold shrink-0 ring-1 ring-slate-700">
+                  {initials}
+                </div>
+              )}
               
               {/* Text Content */}
               <div>
-                <h2 class="text-lg font-semibold text-white">{person.data.name}</h2> <p class="text-sm text-orange-600">{person.data.role}</p> </div>
+                <h2 class="text-lg font-semibold text-white">{person.data.name}</h2>
+                <p class="text-sm text-orange-600">{person.data.role}</p>
+              </div>
             </div>
 
-            {/* 3. New Bottom Container: Renders only the links present in the person's markdown */}
-            <div class="flex items-center gap-3 pt-2 border-t border-slate-800/60 text-slate-400">
+            {/* Bottom section: Optional Contact & Profile Links */}
+            <div class="flex items-center gap-3 pt-2 border-t border-slate-800/50 text-slate-400">
               
               {/* Email */}
               {person.data.email && (
@@ -89,7 +97,8 @@ const sortedPeople = allPeople.sort((a, b) => { // [cite: 35]
               )}
 
             </div>
-          </article> );
+          </article>
+        );
       })}
     </div>
   </section>
