@@ -1,14 +1,18 @@
 # FL Research Lab Website
 
-This is the official website for the Federated Learning & Intelligent Systems Research Lab at the University of Texas Rio Grande Valley (UTRGV). Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com).
+This is the official website for the Federated Learning & Intelligent Systems Research Lab at the University of Texas Rio Grande Valley (UTRGV). Built with Astro and Tailwind CSS.
 
-## 🚀 Quick Start
+## Quick Start
 
-This is a content-driven website. All lab information (team members, projects, publications, news) is stored as Markdown files in the `src/content/` folder. **No coding required** to update information—just create or edit Markdown files.
+This is a content-driven website. All lab information (team members, projects, publications, news) is stored as Markdown files in the `src/content/` folder. No coding required to update information—just create or edit Markdown files.
 
-## 📁 Folder Structure
+## Folder Structure
 
-```
+.
+├── public/                 # Static assets directory (copied directly to build)
+│   ├── avatars/            # Profile photos for lab team members
+│   └── cvs/                # Curriculum Vitae (CV) PDF documents
+│
 src/
 ├── content/              # All lab data (Markdown files)
 │   ├── news/            # Lab news and announcements
@@ -28,26 +32,34 @@ src/
 │
 └── styles/              # CSS styling
     └── global.css       # Tailwind CSS & custom styles
-```
 
-## 📝 How to Update Lab Information
+## How to Update Lab Information
 
 ### Adding a New Team Member
 
-1. Go to `src/content/people/`
-2. Create a new Markdown file with the member's name (e.g., `dr-john-smith.md`)
-3. Add the following template:
+1. **Upload Profile Assets**: 
+   * If adding a profile photo, upload the file directly into the `public/avatars/` directory.
+   * If adding a resume or CV, upload the PDF document directly into the `public/cvs/` directory.
+2. Go to `src/content/people/`
+3. Create a new Markdown file with the member's name (e.g., `dr-john-smith.md`)
+4. Add the following template, filling out the optional fields as needed:
 
-```markdown
 ---
 name: "Dr. John Smith"
 role: "Research Scientist"
 bio: "Brief bio about the researcher and their focus areas."
-website: "https://example.com" # Optional
+email: "john.smith@utrgv.edu"
+website: "https://example.com"
+scholar: "https://scholar.google.com/citations?user=example"
+linkedin: "https://www.linkedin.com/in/username"
+github: "github-handle"
+avatar: "/avatars/your-uploaded-image.jpg"
+cv: "/cvs/your-uploaded-resume.pdf"
 ---
-```
 
-4. Save the file. It will automatically appear on the **People** page.
+*Note: All contact and profile links are completely optional. If a field is omitted from the frontmatter profile template, its corresponding icon will automatically be hidden from the website interface. Ensure that any image or CV path explicitly points back to the absolute `public` root using a forward slash (e.g., `/avatars/...` or `/cvs/...`).*
+
+5. Save the file. It will automatically appear on the **People** page.
 
 ### Adding a New Project
 
@@ -55,13 +67,11 @@ website: "https://example.com" # Optional
 2. Create a new Markdown file (e.g., `my-project.md`)
 3. Add the following template:
 
-```markdown
 ---
 title: "Project Title"
 status: "Active" # or "Completed", "Planning"
 summary: "Brief description of the project, its goals, and current status."
 ---
-```
 
 4. Save the file. It will automatically appear on the **Projects** page.
 
@@ -71,7 +81,6 @@ summary: "Brief description of the project, its goals, and current status."
 2. Create a new Markdown file (e.g., `my-paper.md`)
 3. Add the following template:
 
-```markdown
 ---
 title: "Paper Title"
 date: "2026-06-06" # Publication date
@@ -79,7 +88,6 @@ summary: "Abstract or brief summary of the publication."
 authors: [] # Optional: list author references if needed
 link: "https://doi.org/example" # Optional: link to paper
 ---
-```
 
 4. Save the file. It will automatically appear on the **Publications** page.
 
@@ -89,18 +97,16 @@ link: "https://doi.org/example" # Optional: link to paper
 2. Create a new Markdown file (e.g., `my-announcement.md`)
 3. Add the following template:
 
-```markdown
 ---
 title: "News Title"
 date: "2026-06-06"
 summary: "Brief news announcement or milestone update."
 link: "https://example.com" # Optional: link to full article
 ---
-```
 
 4. Save the file. It will automatically appear on the **News** page.
 
-## 🔧 Development
+## Development
 
 ### Prerequisites
 - Node.js 20+ installed
@@ -108,7 +114,6 @@ link: "https://example.com" # Optional: link to full article
 
 ### Setup
 
-```bash
 # Install dependencies
 npm install
 
@@ -120,9 +125,8 @@ npm run build
 
 # Preview production build
 npm run preview
-```
 
-## 📦 Deployment
+## Deployment
 
 This site is deployed to GitHub Pages at `https://angelperedo97.github.io/FL-Research-Lab/`. 
 
@@ -131,21 +135,19 @@ Changes are automatically deployed when pushed to the `main` branch via GitHub A
 ### To Deploy
 Simply push your changes to GitHub:
 
-```bash
 git add .
 git commit -m "Add/update content"
 git push
-```
 
 The GitHub Actions workflow will automatically build and deploy your changes.
 
-## 🎨 Customization
+## Customization
 
 - **Colors & Styling**: Edit `src/styles/global.css` to modify Tailwind CSS classes
 - **Layout & Navigation**: Edit `src/layouts/BaseLayout.astro` to change the site header/footer
 - **Page Content**: Edit Markdown files in `src/content/` to update text
 
-## 👥 Contributing
+## Contributing
 
 All lab members can contribute by:
 1. Creating new content files (as described above)
@@ -154,7 +156,6 @@ All lab members can contribute by:
 
 **Before publishing changes**, test locally with `npm run dev` to ensure everything looks correct.
 
-## 📄 License
+## License
 
 This project is maintained by the FL Research Lab at UTRGV.
-
