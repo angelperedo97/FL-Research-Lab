@@ -5,6 +5,7 @@ bio: "Research interests include AI/ML applications and their robustness and sec
 website: "https://faculty.utrgv.edu/sergei.chuprov/"
 email: "sergei.chuprov@utrgv.edu"
 scholar: "https://scholar.google.com/citations?hl=en&user=IpuSnGwAAAAJ"
+linkedin: "https://www.linkedin.com/in/sergei-chuprov-889053174"
 avatar: "/avatars/sergei-chuprov.jpg"
 cv: "/cvs/CV_Sergei_Chuprov.pdf"
 ---
