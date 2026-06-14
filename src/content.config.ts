@@ -1,7 +1,8 @@
 import { defineCollection, z, reference } from 'astro:content';
 
 const people = defineCollection({
-  schema: ({ image }) => z.object({
+  // Removed ({ image }) callback to treat filepaths as clean strings
+  schema: z.object({
     name: z.string(),
     role: z.string(),
     bio: z.string().optional(),
@@ -10,7 +11,8 @@ const people = defineCollection({
     linkedin: z.string().url().optional(),
     scholar: z.string().url().optional(),
     
-    avatar: image().optional(),
+    // Changed to a string validator so Astro doesn't crash on clean CI builds
+    avatar: z.string().optional(),
     
     cv: z.string().optional(),
   }),
