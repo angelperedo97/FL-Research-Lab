@@ -148,18 +148,18 @@ declare module 'astro:content' {
   collection: "news";
   data: any
 } & { render(): Render[".md"] };
-"website-launch.md": {
-	id: "website-launch.md";
-  slug: "website-launch";
-  body: string;
-  collection: "news";
-  data: any
-} & { render(): Render[".md"] };
 };
 "people": {
-"dr-jane-alvarez.md": {
-	id: "dr-jane-alvarez.md";
-  slug: "dr-jane-alvarez";
+"angel-peredo.md": {
+	id: "angel-peredo.md";
+  slug: "angel-peredo";
+  body: string;
+  collection: "people";
+  data: any
+} & { render(): Render[".md"] };
+"david-sanchez.md": {
+	id: "david-sanchez.md";
+  slug: "david-sanchez";
   body: string;
   collection: "people";
   data: any
@@ -171,15 +171,15 @@ declare module 'astro:content' {
   collection: "people";
   data: any
 } & { render(): Render[".md"] };
-};
-"projects": {
-"interactive-flow-models.md": {
-	id: "interactive-flow-models.md";
-  slug: "interactive-flow-models";
+"eieinyein-chan.md": {
+	id: "eieinyein-chan.md";
+  slug: "eieinyein-chan";
   body: string;
-  collection: "projects";
+  collection: "people";
   data: any
 } & { render(): Render[".md"] };
+};
+"projects": {
 "project-1.md": {
 	id: "project-1.md";
   slug: "project-1";
@@ -206,13 +206,6 @@ declare module 'astro:content' {
 "chuprov-metacognitive-ai.md": {
 	id: "chuprov-metacognitive-ai.md";
   slug: "chuprov-metacognitive-ai";
-  body: string;
-  collection: "publications";
-  data: any
-} & { render(): Render[".md"] };
-"learning-from-flow-data.md": {
-	id: "learning-from-flow-data.md";
-  slug: "learning-from-flow-data";
   body: string;
   collection: "publications";
   data: any
