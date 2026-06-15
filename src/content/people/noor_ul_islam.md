@@ -6,5 +6,5 @@ email: "noor.ulislam01@utrgv.edu"
 linkedin: "(https://www.linkedin.com/in/noor-ul-islam-2ba916347/)"
 github: "(https://github.com/Noorulislam1)"
 avatar: "/avatars/noor.jpg"
-cv: "/cvs/noor_cv.pdf"
+cv: "/cvs/Noor_Ul_Islam_CV.pdf"
 ---
