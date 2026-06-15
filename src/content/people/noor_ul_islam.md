@@ -1,6 +1,6 @@
 ---
 name: "Noor Ul Islam"
-role: "graduate student @ UTRGV"
+role: "Graduate Student @ UTRGV"
 bio: "Ongoing Research
 A Performance Case Study of Vision-Language Models for Roadway Flood Detection Using Traffic Cameras"
 email: "noor.ulislam01@utrgv.edu"
