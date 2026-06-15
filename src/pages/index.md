@@ -16,7 +16,7 @@ title: "Home"
     </p>
   </div>
 
-  <div class="w-48 md:w-64 lg:w-80 shrink-0 -ml-4">
+  <div class="mb-14 pt-4 flex flex-col md:flex-row items-center md:gap-0 lg:gap-0">
     <img 
       src="/FL-Research-Lab/logo.svg" 
       alt="FL Research Lab Logo" 
