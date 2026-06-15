@@ -1,7 +1,7 @@
 ---
 name: "Damian Villarreal"
-role: "Researcher"
-bio: "MSCS @ UTRGV, UTRGV RSOC Lead"
+role: "MSCS @ UTRGV, UTRGV RSOC Lead"
+bio: "Researcher"
 email: "damian.villarreal01@utrgv.edu"
 website: "https://damianvillarreal.com/"
 linkedin: "https://www.linkedin.com/in/dsuyu/"
