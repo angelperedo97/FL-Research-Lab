@@ -24,7 +24,7 @@ title: "Home"
     />
   </div>
 
-<div class="w-full text-center mt-16 mb-2">
+</div> <div class="w-full text-center mt-16 mb-2">
   <h2 class="text-xl font-extrabold tracking-wide text-rit-orange-text uppercase">Research Topics</h2>
 </div>
 <div class="w-full mb-10 border-t border-line"></div>
