@@ -1,8 +1,10 @@
 ---
 title: "Gradecross Monitoring"
 status: "Active Work"
-summary: "Real-time Rail Grade-Crossing Anomaly Detection using Computer Vision "
-poster : "[text](file:///home/gaelm/Downloads/STEM%20Presentation%20Poster.pdf)"
+summary: "Real-time Rail Grade-Crossing Anomaly Detection using Computer Vision"
+contributors:
+  - "Gael Marquez"
+  - "David Alejandro Sanchez"
 ---
 
 Details about Project One will be added here.
