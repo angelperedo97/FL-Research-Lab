@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPeople = await getCollection('people');
+  return allPeople.map((person) => ({
+    params: { slug: person.slug },
+    props: { person },
+  }));
+}
+
+const { person } = Astro.props;
+const { Content } = await person.render();
+
+const allPublications = await getCollection('publications');
+const allProjects = await getCollection('projects');
+
+// Helper checking function matching against both profile objects and direct text strings
+const isMemberAssociated = (memberList, personName, personSlug) => {
+  if (!memberList) return false;
+  return memberList.some(member => {
+    if (typeof member === 'string') return member.toLowerCase() === personName.toLowerCase();
+    if (member && typeof member === 'object') return member.id === personSlug;
+    return false;
+  });
+};
+
+const personPublications = allPublications.filter((pub) => 
+  isMemberAssociated(pub.data.authors, person.data.name, person.slug)
+);
+
+const personProjects = allProjects.filter((proj) => 
+  isMemberAssociated(proj.data.contributors, person.data.name, person.slug)
+);
+---
+
+<BaseLayout title={person.data.name}>
+  <main class="max-w-4xl mx-auto px-4 py-12 text-white">
+    
+    <div class="flex flex-col items-center text-center space-y-4 mb-8">
+      {person.data.avatar && (
+        <img 
+          src={person.data.avatar} 
+          alt={person.data.name} 
+          class="w-32 h-32 rounded-full object-cover border-2 border-slate-800 shadow-md"
+        />
+      )}
+      <div>
+        <h1 class="text-4xl font-bold tracking-tight">{person.data.name}</h1>
+        <p class="text-orange-600 font-medium mt-1">{person.data.role}</p>
+      </div>
+    </div>
+
+    <div class="prose prose-invert max-w-2xl mx-auto text-center text-slate-300 leading-relaxed mb-12">
+      <Content />
+      {person.data.bio && <p>{person.data.bio}</p>}
+    </div>
+
+    {personPublications.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">Publications</h3>
+        <div class="space-y-4">
+          {personPublications.map((pub) => (
+            <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                  {pub.data.venue || 'Conference'} • {new Date(pub.data.date).getFullYear()}
+                </p>
+                <h4 class="text-base font-semibold text-white leading-snug">{pub.data.title}</h4>
+              </div>
+              {pub.data.link && (
+                <a href={pub.data.link} target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
+                  Link ↗
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {personProjects.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">Projects</h3>
+        <div class="space-y-4">
+          {personProjects.map((project) => (
+            <div class="p-6 bg-[#0f172a] border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+              <div class="space-y-1.5 flex-1">
+                <p class="text-xs font-semibold tracking-widest text-orange-600 uppercase">
+                  {project.data.status}
+                </p>
+                <h4 class="text-lg font-semibold text-white leading-snug">{project.data.title}</h4>
+                <p class="text-sm text-slate-400 leading-relaxed">{project.data.summary}</p>
+              </div>
+              
+              <div class="flex gap-2 shrink-0 self-end sm:self-center">
+                {project.data.poster && (
+                  <a href={project.data.poster} target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
+                    Poster 📋
+                  </a>
+                )}
+                {project.data.link && (
+                  <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
+                    Project ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+  </main>
+</BaseLayout>
