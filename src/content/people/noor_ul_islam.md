@@ -5,6 +5,6 @@ bio: "Master’s student at the University of Texas Rio Grande Valley conducting
 email: "noor.ulislam01@utrgv.edu"
 linkedin: "(https://www.linkedin.com/in/noor-ul-islam-2ba916347/)"
 github: "(https://github.com/Noorulislam1)"
-avatar: "/avatars/noor.jpg"
+avatar: "/avatars/Noor_ul .png"
 cv: "/cvs/Noor_Ul_Islam_CV.pdf"
 ---
