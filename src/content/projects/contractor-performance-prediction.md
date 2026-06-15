@@ -5,8 +5,6 @@ summary: "This project proposes a machine learning-based decision support tool t
 contributors:
   - "Pedro Fonseca"
   - "Dr. Sergei Chuprov"
-  - "Gael Marquez"
-
 ---
 
 Details about Project One will be added here.
