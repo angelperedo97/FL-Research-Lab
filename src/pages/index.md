@@ -5,7 +5,7 @@ title: "Home"
 
 <div class="mb-14 pt-4 flex flex-col md:flex-row items-center gap-10 lg:gap-16">
   
-  <div class="flex-1">
+  <div class="">
     <span class="text-xs font-bold tracking-widest text-rit-orange uppercase block mb-3">University of Texas Rio Grande Valley</span>
     <h1 class="text-4xl md:text-6xl font-black tracking-tight text-text leading-[1.1] mb-6">
       Decentralized data. <br />
