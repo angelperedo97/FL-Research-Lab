@@ -16,7 +16,7 @@ title: "Home"
     </p>
   </div>
 
-  <div class="w-48 md:w-64 lg:w-80 shrink-0">
+  <div class="w-48 md:w-64 lg:w-80 shrink-0 -ml-4">
     <img 
       src="/FL-Research-Lab/logo.svg" 
       alt="FL Research Lab Logo" 
