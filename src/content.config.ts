@@ -1,7 +1,6 @@
 import { defineCollection, z, reference } from 'astro:content';
 
 const people = defineCollection({
-  // Removed ({ image }) callback to treat filepaths as clean strings
   schema: z.object({
     name: z.string(),
     role: z.string(),
@@ -10,10 +9,7 @@ const people = defineCollection({
     website: z.string().url().optional(),
     linkedin: z.string().url().optional(),
     scholar: z.string().url().optional(),
-    
-    // Changed to a string validator so Astro doesn't crash on clean CI builds
     avatar: z.string().optional(),
-    
     cv: z.string().optional(),
   }),
 });
@@ -23,8 +19,10 @@ const projects = defineCollection({
     title: z.string(),
     status: z.string(),
     summary: z.string(),
-    contributors: z.array(reference('people')).optional(),
+    // Allow either the reference object OR a simple array of text strings
+    contributors: z.union([z.array(reference('people')), z.array(z.string())]).optional(),
     link: z.string().url().optional(),
+    poster: z.string().optional(), // New web-safe poster link attribute
   }),
 });
 
@@ -32,8 +30,10 @@ const publications = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.string(),
+    venue: z.string().default('Publication'), // Ensure venue exists
     summary: z.string(),
-    authors: z.array(reference('people')).optional(),
+    // Updated to accept both raw text arrays and individual data references safely
+    authors: z.union([z.array(reference('people')), z.array(z.string())]).optional(),
     link: z.string().url().optional(),
   }),
 });
@@ -47,9 +47,4 @@ const news = defineCollection({
   }),
 });
 
-export const collections = {
-  people,
-  projects,
-  publications,
-  news,
-};
+export const collections = { people, projects, publications, news };
