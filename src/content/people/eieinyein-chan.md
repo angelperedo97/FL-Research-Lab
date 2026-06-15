@@ -5,6 +5,6 @@ bio: "Research areas in Federated Learning, Personalized FL and Reinforcement Le
 email: "eieinyein.chan01@utrgv.edu"
 linkedin: "https://linkedin.com/in/eieinyeinchan"
 github: "eenyeinchan"
-avatar: "eenc.jpg"
+avatar: "profile_eenc.png"
 cv: "EiChan_Resume.pdf"
 ---
