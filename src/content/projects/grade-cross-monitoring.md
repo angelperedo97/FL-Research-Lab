@@ -8,5 +8,3 @@ contributors:
   - "David Alejandro Sanchez"
   - "Dr. Sergei Chuprov"
 ---
-
-Details about Project One will be added here.

@@ -3,18 +3,28 @@ layout: ../layouts/BaseLayout.astro
 title: "Home"
 ---
 
-<div class="mb-14 pt-4">
-  <span class="text-xs font-bold tracking-widest text-rit-orange uppercase block mb-3">University of Texas Rio Grande Valley</span>
-  <h1 class="text-4xl md:text-6xl font-black tracking-tight text-text leading-[1.1] mb-6">
-    Decentralized data. <br />
-    <span class="font-display italic font-normal text-rit-orange-text text-5xl md:text-7xl">Intelligent</span> security.
-  </h1>
-  <p class="text-base md:text-lg text-text-dim leading-relaxed max-w-4xl">
-    The Federated Learning & Intelligent Systems Research Lab is directed by Dr. Sergei Chuprov in the Department of Computer Science at the University of Texas Rio Grande Valley (UTRGV). The primary research focus centers on Federated Learning foundations, specifically personalized frameworks and distributed optimization algorithms. The group additionally investigates interdisciplinary machine learning applications across sensing and computing domains.
-  </p>
-</div>
+<div class="mb-14 pt-4 flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+  
+  <div class="">
+    <span class="text-xs font-bold tracking-widest text-rit-orange uppercase block mb-3">University of Texas Rio Grande Valley</span>
+    <h1 class="text-4xl md:text-6xl font-black tracking-tight text-text leading-[1.1] mb-6">
+      Decentralized data. <br />
+      <span class="font-display italic font-normal text-rit-orange-text text-5xl md:text-7xl">Intelligent</span> security.
+    </h1>
+    <p class="text-base md:text-lg text-text-dim leading-relaxed max-w-4xl">
+      The Federated Learning & Intelligent Systems Research Lab is directed by Dr. Sergei Chuprov in the Department of Computer Science at the University of Texas Rio Grande Valley (UTRGV). The primary research focus centers on Federated Learning foundations, specifically personalized frameworks and distributed optimization algorithms. The group additionally investigates interdisciplinary machine learning applications across sensing and computing domains.
+    </p>
+  </div>
 
-<div class="w-full text-center mt-16 mb-2">
+  <div class="w-48 md:w-64 lg:w-80 shrink-0 mx-auto">
+    <img 
+      src="/FL-Research-Lab/logo.svg" 
+      alt="FL Research Lab Logo" 
+      class="w-full h-auto object-contain" 
+    />
+  </div>
+
+</div> <div class="w-full text-center mt-16 mb-2">
   <h2 class="text-xl font-extrabold tracking-wide text-rit-orange-text uppercase">Research Topics</h2>
 </div>
 <div class="w-full mb-10 border-t border-line"></div>

@@ -19,25 +19,42 @@ const allProjects = await getCollection('projects');
 // Extract and normalize the base URL path configuration for GitHub Pages routing
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
 
+/**
+ * HELPER FUNCTION: Strips prefixes like Dr. or Prof. and extra spacing
+ * so that academic and card layouts match perfectly.
+ */
+const stripTitles = (str: string) => {
+  return str
+    .toLowerCase()
+    .replace(/^(dr\.|prof\.|mr\.|ms\.)\s+/i, '')
+    .trim();
+};
+
 // Multi-scenario matching algorithm checking raw text strings, list values, or object schemas
 const isMemberAssociated = (memberList, personName, personSlug) => {
   if (!memberList) return false;
   
-  const cleanPersonName = personName.toLowerCase().trim();
+  // Strip "Dr." from the profile card name (e.g., "Dr. Sergei Chuprov" -> "sergei chuprov")
+  const cleanPersonName = stripTitles(personName);
   const cleanPersonSlug = personSlug.toLowerCase().trim();
 
   return memberList.some(member => {
     if (!member) return false;
     
-    // Scenario 1: If it is a string array item (handles un-split multi-name strings via fallback string inclusion)
+    // Scenario 1: If it is a string array item
     if (typeof member === 'string') {
-      return member.toLowerCase().includes(cleanPersonName);
+      const cleanMemberName = stripTitles(member);
+      // Dual directional match check for ultimate safety
+      return cleanMemberName.includes(cleanPersonName) || cleanPersonName.includes(cleanMemberName);
     }
     
     // Scenario 2: If Astro parsed it as a Content Relationship reference object
     if (typeof member === 'object') {
       if (member.id && member.id.toLowerCase().trim() === cleanPersonSlug) return true;
-      if (member.data?.name && member.data.name.toLowerCase().includes(cleanPersonName)) return true;
+      if (member.data?.name) {
+        const cleanMemberDataName = stripTitles(member.data.name);
+        return cleanMemberDataName.includes(cleanPersonName) || cleanPersonName.includes(cleanMemberDataName);
+      }
     }
     
     return false;
