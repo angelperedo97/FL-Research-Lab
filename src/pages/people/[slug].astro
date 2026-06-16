@@ -61,9 +61,9 @@ const isMemberAssociated = (memberList, personName, personSlug) => {
   });
 };
 
-const personPublications = allPublications.filter((pub) => 
-  isMemberAssociated(pub.data.authors, person.data.name, person.slug)
-);
+const personPublications = allPublications
+  .filter((pub) => isMemberAssociated(pub.data.authors, person.data.name, person.slug))
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
 const personProjects = allProjects.filter((proj) => 
   isMemberAssociated(proj.data.contributors, person.data.name, person.slug)
