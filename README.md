@@ -114,6 +114,8 @@ date: "2026-06-06"
 summary: "Abstract or brief summary of the publication."
 authors: [] # Optional: list author references if needed
 link: "https://doi.org/example" # Optional: link to paper
+selected: true # Optional: list this paper under Selected Research
+selected_order: 1 # Optional: order of appearance in Selected Research
 ---
 ```
 
