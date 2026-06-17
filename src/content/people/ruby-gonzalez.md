@@ -1,6 +1,6 @@
 ---
 name: "Ruby Gonzalez"
-role: "M.S. Student @ UTRGV"
+role: "Graduate Student @ UTRGV"
 bio: "Research areas in Computer Vision"
 email: "ruby.gonzalez08@utrgv.edu"
 ---
