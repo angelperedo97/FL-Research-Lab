@@ -121,6 +121,11 @@ selected_order: 1 # Optional: order of appearance in Selected Research
 
 4. Save the file. It will automatically appear on the Publications page.
 
+**About Selected Research & Author Mapping:**
+* **Author Mapping:** Any publication where a lab member's name appears in the `authors` array will automatically be displayed on that member's personal profile page.
+* **Selected Research:** To highlight specific major publications on a member's profile, you can set `selected: true` and specify a `selected_order`. If a member has at least one selected publication, their profile will display a prominent "Selected Research" section for those specific papers, with their remaining publications tucked neatly behind a "Show all publications" toggle button.
+* **Fallback Logic:** If a member has publications but *none* of them are marked as `selected`, their profile will automatically adapt to show a simple, flat "Publications" list without any toggles.
+
 ---
 
 ### Adding a News Update
