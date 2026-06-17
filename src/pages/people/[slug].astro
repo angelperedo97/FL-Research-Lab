@@ -103,9 +103,11 @@ const personProjects = allProjects.filter((proj) =>
     {personPublications.length > 0 && (
       <div class="mt-12">
         <hr class="border-slate-800 my-8" />
-        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">Selected Research</h3>
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+          {selectedPublications.length > 0 ? "Selected Research" : "Publications"}
+        </h3>
         <div class="space-y-4">
-          {selectedPublications.length > 0 ? selectedPublications.map((pub) => (
+          {(selectedPublications.length > 0 ? selectedPublications : personPublications).map((pub) => (
             <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div class="space-y-1">
                 <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
@@ -122,10 +124,10 @@ const personProjects = allProjects.filter((proj) =>
                 </a>
               )}
             </article>
-          )) : <p class="text-slate-500 text-sm italic">No selected publications explicitly set yet.</p>}
+          ))}
         </div>
 
-        {otherPublications.length > 0 && (
+        {selectedPublications.length > 0 && otherPublications.length > 0 && (
           <div class="mt-6">
             <button id="toggle-pubs" class="text-sm font-semibold text-orange-600 hover:text-orange-500 transition-colors flex items-center gap-2">
               Show all publications <span id="toggle-icon">↓</span>
