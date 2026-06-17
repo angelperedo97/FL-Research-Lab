@@ -10,4 +10,6 @@ authors:
 - "Arnaldo Barea"
 - "Leon Reznik"
 link: "https://ieeexplore.ieee.org/abstract/document/11366920" # Optional: link to paper
+selected: true
+selected_order: 3
 ---
