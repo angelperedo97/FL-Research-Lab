@@ -7,4 +7,10 @@ contributors:
   - "Ruby Gonzalez"
   - "David Alejandro Sanchez"
   - "Dr. Sergei Chuprov"
+github: ""
+related_publications: []
 ---
+
+## Project Overview
+
+[Placeholder description for the project. Detail the objectives, methodology, and expected outcomes here.]

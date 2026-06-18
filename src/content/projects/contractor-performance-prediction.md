@@ -5,5 +5,10 @@ summary: "This project proposes a machine learning-based decision support tool t
 contributors:
   - "Pedro Fonseca"
   - "Dr. Sergei Chuprov"
+github: ""
+related_publications: []
 ---
 
+## Project Overview
+
+[Placeholder description for the project. Detail the objectives, methodology, and expected outcomes here.]
