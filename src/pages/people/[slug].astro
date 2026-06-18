@@ -117,6 +117,44 @@ const personProjects = allProjects.filter((proj) =>
       <div>
         <h1 class="text-4xl font-bold tracking-tight">{person.data.name}</h1>
         <p class="text-orange-600 font-medium mt-1">{person.data.role}</p>
+
+        {/* Contact Links */}
+        <div class="flex items-center justify-center gap-4 mt-4 text-slate-400">
+          {/* Email */}
+          {person.data.email && (
+            <a href={`mailto:${person.data.email}`} class="hover:text-orange-500 transition-colors" title="Email">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </a>
+          )}
+
+          {/* Website */}
+          {person.data.website && (
+            <a href={person.data.website} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Website">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </a>
+          )}
+
+          {/* LinkedIn */}
+          {person.data.linkedin && (
+            <a href={person.data.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          )}
+
+          {/* Google Scholar */}
+          {person.data.scholar && (
+            <a href={person.data.scholar} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Google Scholar">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M6 18.8v-4L2.3 13a1 1 0 0 0-1.3 1v3.5a2.5 2.5 0 0 0 5 0z"/><path d="M21.5 13v6a2 2 0 0 1-2 2H13"/></svg>
+            </a>
+          )}
+
+          {/* CV */}
+          {person.data.cv && (
+            <a href={`${baseUrl}/${person.data.cv.replace(/^\\//, "")}`} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Curriculum Vitae (CV)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M9 11h6"/></svg>
+            </a>
+          )}
+        </div>
       </div>
     </div>
 
