@@ -92,10 +92,21 @@ cv: "/cvs/your-uploaded-resume.pdf"
 title: "Project Title"
 status: "Active" # or "Completed", "Planning"
 summary: "Brief description of the project, its goals, and current status."
+contributors:
+  - "John Doe" # Add names exactly as they appear in people profiles to link them automatically
+github: "https://github.com/..." # Optional: link to github repository
+link: "https://example.com" # Optional: link to project website
+poster: "/path/to/poster.pdf" # Optional: link to project poster
+related_publications: 
+  - "my-paper" # Optional: list filenames (without .md) of related publications
 ---
+
+## Project Overview
+
+Add the detailed description of the project here. This will be displayed when someone clicks on the project to view its dedicated page.
 ```
 
-4. Save the file. It will automatically appear on the Projects page.
+4. Save the file. It will automatically appear on the Projects page and have its own dedicated page.
 
 ---
 
