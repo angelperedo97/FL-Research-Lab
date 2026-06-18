@@ -45,7 +45,21 @@ const isMemberAssociated = (memberList, personName, personSlug) => {
     if (typeof member === 'string') {
       const cleanMemberName = stripTitles(member);
       // Dual directional match check for ultimate safety
-      return cleanMemberName.includes(cleanPersonName) || cleanPersonName.includes(cleanMemberName);
+      if (cleanMemberName.includes(cleanPersonName) || cleanPersonName.includes(cleanMemberName)) {
+        return true;
+      }
+      
+      // Fallback for abbreviated first names (e.g., "s. chuprov" matching "sergei chuprov")
+      const personParts = cleanPersonName.split(' ');
+      const memberParts = cleanMemberName.split(' ');
+      if (personParts.length >= 2 && memberParts.length >= 2) {
+        const pLast = personParts[personParts.length - 1];
+        const mLast = memberParts[memberParts.length - 1];
+        if (pLast === mLast && personParts[0][0] === memberParts[0][0]) {
+          return true;
+        }
+      }
+      return false;
     }
     
     // Scenario 2: If Astro parsed it as a Content Relationship reference object
@@ -53,7 +67,18 @@ const isMemberAssociated = (memberList, personName, personSlug) => {
       if (member.id && member.id.toLowerCase().trim() === cleanPersonSlug) return true;
       if (member.data?.name) {
         const cleanMemberDataName = stripTitles(member.data.name);
-        return cleanMemberDataName.includes(cleanPersonName) || cleanPersonName.includes(cleanMemberDataName);
+        if (cleanMemberDataName.includes(cleanPersonName) || cleanPersonName.includes(cleanMemberDataName)) {
+          return true;
+        }
+        const mParts = cleanMemberDataName.split(' ');
+        const pParts = cleanPersonName.split(' ');
+        if (mParts.length >= 2 && pParts.length >= 2) {
+          const mLast = mParts[mParts.length - 1];
+          const pLast = pParts[pParts.length - 1];
+          if (mLast === pLast && mParts[0][0] === pParts[0][0]) {
+            return true;
+          }
+        }
       }
     }
     
