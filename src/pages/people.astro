@@ -40,7 +40,7 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "") + "/";
         const fullAvatarPath = person.data.avatar ? `${baseUrl}${cleanAvatarField}` : '';
         
         const cleanCvField = person.data.cv ? person.data.cv.replace(/^\//, "") : "";
-        const fullCvPath = person.data.cv ? `${baseUrl}${cleanCvField}` : '';
+        const fullCvPath = person.data.cv ? (person.data.cv.startsWith('http') ? person.data.cv : `${baseUrl}${cleanCvField}`) : '';
         
         const profileLink = `${baseUrl}people/${person.slug}`;
 

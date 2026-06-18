@@ -7,7 +7,7 @@ email: "sergei.chuprov@utrgv.edu"
 scholar: "https://scholar.google.com/citations?hl=en&user=IpuSnGwAAAAJ"
 linkedin: "https://www.linkedin.com/in/sergei-chuprov-889053174"
 avatar: "/avatars/sergei-chuprov.jpg"
-cv: "/cvs/CV_Sergei_Chuprov.pdf"
+cv: "https://github.com/sergeichuprov/isslab/raw/main/assets/docs/CV_Sergei_Chuprov.pdf"
 ---
 
 Dr. Sergei Chuprov is the director of the FL Research Lab at the University of Texas Rio Grande Valley.
