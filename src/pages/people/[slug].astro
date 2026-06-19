@@ -218,12 +218,12 @@ const personProjects = allProjects.filter((proj) =>
                 <button id="toggle-pubs" class="text-sm font-semibold text-orange-600 hover:text-orange-500 transition-colors flex items-center gap-2">
                   Show all publications <span id="toggle-icon">↓</span>
                 </button>
-                <div id="other-pubs" class="hidden mt-8 space-y-12">
+                <div id="other-pubs" class="hidden mt-8 space-y-8">
                   {sortedOtherYears.map((year) => (
                     <div>
-                      <div class="flex items-center gap-4 mb-6">
-                        <h4 class="text-xl font-bold text-slate-300">{year}</h4>
-                        <div class="h-px bg-slate-800 flex-1"></div>
+                      <div class="flex items-center gap-4 mb-4">
+                        <h4 class="text-sm font-semibold text-slate-500 tracking-wider leading-none">{year}</h4>
+                        <div class="h-px bg-slate-800/60 flex-1"></div>
                       </div>
                       <div class="space-y-4">
                         {groupedOtherPublications[year].map((pub) => (
@@ -258,12 +258,12 @@ const personProjects = allProjects.filter((proj) =>
             <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-8">
               Publications
             </h3>
-            <div class="space-y-12">
+            <div class="space-y-8">
               {sortedPersonYears.map((year) => (
                 <div>
-                  <div class="flex items-center gap-4 mb-6">
-                    <h4 class="text-xl font-bold text-slate-300">{year}</h4>
-                    <div class="h-px bg-slate-800 flex-1"></div>
+                  <div class="flex items-center gap-4 mb-4">
+                    <h4 class="text-sm font-semibold text-slate-500 tracking-wider leading-none">{year}</h4>
+                    <div class="h-px bg-slate-800/60 flex-1"></div>
                   </div>
                   <div class="space-y-4">
                     {groupedPersonPublications[year].map((pub) => (

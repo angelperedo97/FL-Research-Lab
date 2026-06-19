@@ -29,12 +29,12 @@ const sortedYears = Object.keys(groupedPublications).sort((a, b) => Number(b) - 
       <p class="mt-4 max-w-2xl text-slate-300">Research outputs from the FL Research Lab, including conference articles, reports, and technical notes.</p>
     </div>
 
-    <div class="space-y-12">
+    <div class="space-y-8">
       {sortedYears.map((year) => (
         <div>
-          <div class="flex items-center gap-4 mb-6">
-            <h2 class="text-2xl font-bold text-white">{year}</h2>
-            <div class="h-px bg-slate-800 flex-1"></div>
+          <div class="flex items-center gap-4 mb-4">
+            <h2 class="text-sm font-semibold text-slate-500 tracking-wider leading-none">{year}</h2>
+            <div class="h-px bg-slate-800/60 flex-1"></div>
           </div>
           <div class="space-y-4">
             {groupedPublications[year].map((publication) => (
