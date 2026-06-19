@@ -99,6 +99,23 @@ const groupedPersonPublications = personPublications.reduce((acc, pub) => {
 
 const sortedPersonYears = Object.keys(groupedPersonPublications).sort((a, b) => Number(b) - Number(a));
 
+const selectedPublications = personPublications
+  .filter((pub) => pub.data.selected === true)
+  .sort((a, b) => (a.data.selected_order || 999) - (b.data.selected_order || 999))
+  .slice(0, 5);
+
+const selectedIds = new Set(selectedPublications.map(p => p.id));
+const otherPublications = personPublications.filter((pub) => !selectedIds.has(pub.id));
+
+const groupedOtherPublications = otherPublications.reduce((acc, pub) => {
+  const year = new Date(pub.data.date).getFullYear() || 'Unknown Year';
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(pub);
+  return acc;
+}, {} as Record<string, typeof otherPublications>);
+
+const sortedOtherYears = Object.keys(groupedOtherPublications).sort((a, b) => Number(b) - Number(a));
+
 const personProjects = allProjects.filter((proj) => 
   isMemberAssociated(proj.data.contributors, person.data.name, person.slug)
 );
@@ -167,42 +184,114 @@ const personProjects = allProjects.filter((proj) =>
     {personPublications.length > 0 && (
       <div class="mt-12">
         <hr class="border-slate-800 my-8" />
-        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
-          Publications
-        </h3>
         
-        <div class="space-y-10">
-          {sortedPersonYears.map((year) => (
-            <div>
-              <div class="flex items-center gap-4 mb-4">
-                <h4 class="text-lg font-bold text-slate-300">{year}</h4>
-                <div class="h-px bg-slate-800 flex-1"></div>
-              </div>
-              <div class="space-y-4">
-                {groupedPersonPublications[year].map((pub) => (
-                  <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
-                    <div class="space-y-1 flex-1">
-                      <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
-                        {pub.data.venue || 'Conference'}
+        {selectedPublications.length > 0 ? (
+          <div>
+            <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+              Selected Research
+            </h3>
+            <div class="space-y-4">
+              {selectedPublications.map((pub) => (
+                <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+                  <div class="space-y-1 flex-1">
+                    <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                      {pub.data.venue || 'Conference'} • {new Date(pub.data.date).getFullYear()}
+                    </p>
+                    <h5 class="text-base font-semibold text-white leading-snug">{pub.data.title}</h5>
+                    {pub.data.authors && pub.data.authors.length > 0 && (
+                      <p class="text-sm text-orange-600/90 font-medium">
+                        {Array.isArray(pub.data.authors) ? pub.data.authors.join(', ') : pub.data.authors}
                       </p>
-                      <h5 class="text-base font-semibold text-white leading-snug">{pub.data.title}</h5>
-                      {pub.data.authors && pub.data.authors.length > 0 && (
-                        <p class="text-sm text-orange-600/90 font-medium">
-                          {Array.isArray(pub.data.authors) ? pub.data.authors.join(', ') : pub.data.authors}
-                        </p>
-                      )}
-                    </div>
-                    {pub.data.link && (
-                      <a href={pub.data.link} target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
-                        Link ↗
-                      </a>
                     )}
-                  </article>
-                ))}
-              </div>
+                  </div>
+                  {pub.data.link && (
+                    <a href={pub.data.link} target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
+                      Link ↗
+                    </a>
+                  )}
+                </article>
+              ))}
             </div>
-          ))}
-        </div>
+
+            {otherPublications.length > 0 && (
+              <div class="mt-8">
+                <button id="toggle-pubs" class="text-sm font-semibold text-orange-600 hover:text-orange-500 transition-colors flex items-center gap-2">
+                  Show all publications <span id="toggle-icon">↓</span>
+                </button>
+                <div id="other-pubs" class="hidden mt-8 space-y-12">
+                  {sortedOtherYears.map((year) => (
+                    <div>
+                      <div class="flex items-center gap-4 mb-6">
+                        <h4 class="text-xl font-bold text-slate-300">{year}</h4>
+                        <div class="h-px bg-slate-800 flex-1"></div>
+                      </div>
+                      <div class="space-y-4">
+                        {groupedOtherPublications[year].map((pub) => (
+                          <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+                            <div class="space-y-1 flex-1">
+                              <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                                {pub.data.venue || 'Conference'}
+                              </p>
+                              <h5 class="text-base font-semibold text-white leading-snug">{pub.data.title}</h5>
+                              {pub.data.authors && pub.data.authors.length > 0 && (
+                                <p class="text-sm text-orange-600/90 font-medium">
+                                  {Array.isArray(pub.data.authors) ? pub.data.authors.join(', ') : pub.data.authors}
+                                </p>
+                              )}
+                            </div>
+                            {pub.data.link && (
+                              <a href={pub.data.link} target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
+                                Link ↗
+                              </a>
+                            )}
+                          </article>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-8">
+              Publications
+            </h3>
+            <div class="space-y-12">
+              {sortedPersonYears.map((year) => (
+                <div>
+                  <div class="flex items-center gap-4 mb-6">
+                    <h4 class="text-xl font-bold text-slate-300">{year}</h4>
+                    <div class="h-px bg-slate-800 flex-1"></div>
+                  </div>
+                  <div class="space-y-4">
+                    {groupedPersonPublications[year].map((pub) => (
+                      <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+                        <div class="space-y-1 flex-1">
+                          <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                            {pub.data.venue || 'Conference'}
+                          </p>
+                          <h5 class="text-base font-semibold text-white leading-snug">{pub.data.title}</h5>
+                          {pub.data.authors && pub.data.authors.length > 0 && (
+                            <p class="text-sm text-orange-600/90 font-medium">
+                              {Array.isArray(pub.data.authors) ? pub.data.authors.join(', ') : pub.data.authors}
+                            </p>
+                          )}
+                        </div>
+                        {pub.data.link && (
+                          <a href={pub.data.link} target="_blank" rel="noopener noreferrer" class="shrink-0 text-xs text-slate-400 border border-slate-800 rounded-full px-3 py-1.5 hover:bg-slate-800 hover:text-white transition-all">
+                            Link ↗
+                          </a>
+                        )}
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     )}
 
@@ -369,4 +458,21 @@ const personProjects = allProjects.filter((proj) =>
   </main>
 </BaseLayout>
 
+<script>
+  const toggleBtn = document.getElementById('toggle-pubs');
+  const otherPubs = document.getElementById('other-pubs');
+  const toggleIcon = document.getElementById('toggle-icon');
 
+  if (toggleBtn && otherPubs && toggleIcon) {
+    toggleBtn.addEventListener('click', () => {
+      otherPubs.classList.toggle('hidden');
+      if (otherPubs.classList.contains('hidden')) {
+        toggleIcon.textContent = '↓';
+        toggleBtn.innerHTML = `Show all publications <span id="toggle-icon">↓</span>`;
+      } else {
+        toggleIcon.textContent = '↑';
+        toggleBtn.innerHTML = `Hide all publications <span id="toggle-icon">↑</span>`;
+      }
+    });
+  }
+</script>
