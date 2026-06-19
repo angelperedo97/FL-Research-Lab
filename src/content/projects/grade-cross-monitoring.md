@@ -13,4 +13,4 @@ related_publications: []
 
 ## Project Overview
 
-[Placeholder description for the project. Detail the objectives, methodology, and expected outcomes here.]
+Real-time Rail Grade-Crossing Anomaly Detection using Computer Vision
