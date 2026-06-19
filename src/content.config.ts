@@ -11,6 +11,33 @@ const people = defineCollection({
     scholar: z.string().url().optional(),
     avatar: z.string().optional(),
     cv: z.string().optional(),
+    presentations: z.array(z.object({
+      title: z.string(),
+      venue: z.string(),
+      date: z.string(),
+      type: z.string().optional(),
+    })).optional(),
+    awards: z.array(z.object({
+      title: z.string(),
+      venue: z.string(),
+      date: z.string(),
+    })).optional(),
+    internships: z.array(z.object({
+      title: z.string(),
+      venue: z.string(),
+      date: z.string(),
+    })).optional(),
+    past_projects: z.array(z.object({
+      title: z.string(),
+      venue: z.string(),
+      date: z.string(),
+      description: z.string().optional(),
+    })).optional(),
+    extracurriculars: z.array(z.object({
+      title: z.string(),
+      venue: z.string().optional(),
+      date: z.string().optional(),
+    })).optional(),
   }),
 });
 

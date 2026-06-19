@@ -8,10 +8,21 @@ github: "adrianpena100"
 linkedin: "https://www.linkedin.com/in/adrianpena2025/"
 avatar: "/avatars/adrian-pena.jpg"
 cv: "/cvs/Adrian_Pena_Resume.pdf"
+presentations:
+  - title: "Improving PID Control with Bayesian Optimization for Adversarially Robust Federated Learning"
+    venue: "ACM ICICT 2026, Honolulu, HI"
+    date: "May 2026"
+    type: "Oral Presentation"
+  - title: "Evaluating Robust Aggregation in Federated Learning Under Adaptive Multi-Strategy Attacks"
+    venue: "UTRGV STEM Research Conference, Edinburg, TX"
+    date: "April 2026"
+    type: "Poster Presentation"
+  - title: "Improving PID-Based Aggregation in Federated Learning for Consumer Applications"
+    venue: "IEEE CCNC 2026, Las Vegas, NV"
+    date: "Jan 2026"
+    type: "Poster Presentation"
+  - title: "Secure Federated Learning via Bayesian PID Control and Integrated Attack Detection"
+    venue: "TACCSTER 2025, Austin, TX"
+    date: "Sept 2025"
+    type: "Poster Presentation"
 ---
-
-### Presentations and Posters
-- (Oral Presentation) Improving PID Control with Bayesian Optimization for Adversarially Robust Federated Learning, *ACM ICICT 2026*, Honolulu, HI (May 2026)
-- (Poster Presentation) Evaluating Robust Aggregation in Federated Learning Under Adaptive Multi-Strategy Attacks, *UTRGV STEM Research Conference*, Edinburg, TX (April 2026)
-- (Poster Presentation) Improving PID-Based Aggregation in Federated Learning for Consumer Applications, *IEEE CCNC 2026*, Las Vegas, NV (Jan 2026)
-- (Poster Presentation) Secure Federated Learning via Bayesian PID Control and Integrated Attack Detection, *TACCSTER 2025*, Austin, TX (Sept 2025)

@@ -70,12 +70,34 @@ linkedin: "https://www.linkedin.com/in/username"
 github: "github-handle"
 avatar: "/avatars/your-uploaded-image.jpg"
 cv: "/cvs/your-uploaded-resume.pdf"
+presentations: # Optional: Array of presentations
+  - title: "Example Presentation"
+    venue: "Conference Name, Location"
+    date: "April 2026"
+    type: "Poster Presentation" # Optional
+awards: # Optional: Array of awards
+  - title: "Outstanding Thesis Award"
+    venue: "Department Name"
+    date: "2025"
+internships: # Optional: Array of internships
+  - title: "Research Internship"
+    venue: "Company or University Name"
+    date: "June 2026 - August 2026"
+past_projects: # Optional: Array of past projects
+  - title: "Example Project"
+    venue: "Location or Context"
+    date: "2023 - 2024"
+    description: "Brief description of the project" # Optional
+extracurriculars: # Optional: Array of extracurricular activities
+  - title: "Club President"
+    venue: "University Name"
+    date: "2024 - 2025"
 ---
 ```
 
-**Note:** All contact and profile links are optional. If a field is omitted from the frontmatter, its corresponding icon will automatically be hidden from the website interface. Ensure that image and CV paths begin with a leading slash (e.g., `/avatars/...` or `/cvs/...`).
+**Note:** All contact, profile links, and activity arrays (presentations, awards, etc.) are optional. If a field is omitted from the frontmatter, its corresponding icon or section will automatically be hidden from the website interface. Ensure that image and CV paths begin with a leading slash (e.g., `/avatars/...` or `/cvs/...`).
 
-5. Save the file. It will automatically appear on the People page.
+5. Save the file. It will automatically appear on the People page, and any added activities will be formatted as cards on the individual profile page.
 
 ---
 

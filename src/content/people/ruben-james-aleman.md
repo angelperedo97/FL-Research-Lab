@@ -6,8 +6,13 @@ website: "https://github.com/BUDDY26"
 email: "ruben.aleman01@utrgv.edu"
 github: "BUDDY26"
 linkedin: "https://www.linkedin.com/in/ruben-james-aleman"
+presentations:
+  - title: "Indirect Prompt Injection Propagation in Agentic AI Pipelines"
+    venue: "UTRGV STEM Conference, Edinburg, TX"
+    date: "April 2026"
+    type: "Poster Presentation"
+  - title: "GPU-Accelerated Parallel Sorting: CUDA Benchmarking, Software Design, and Implementation"
+    venue: ""
+    date: "May 2026"
+    type: "Oral Presentation"
 ---
-
-### Presentations and Posters
-- (Poster) Indirect Prompt Injection Propagation in Agentic AI Pipelines, *UTRGV STEM Conference*, Edinburg, TX (April 2026)
-- (Oral Presentation) GPU-Accelerated Parallel Sorting: CUDA Benchmarking, Software Design, and Implementation (May 2026)

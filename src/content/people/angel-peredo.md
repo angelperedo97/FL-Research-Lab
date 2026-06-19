@@ -8,16 +8,24 @@ github: "angelperedo97"
 linkedin: "https://www.linkedin.com/in/angel-peredo/"
 scholar: "https://scholar.google.com/citations?hl=en&user=PuDJX_UAAAAJ"
 cv: "/cvs/CV_Angel_Peredo.pdf"
+presentations:
+  - title: "Leveraging CCTV Networks for Efficient, Real-Time Flood Monitoring and Depth Estimation"
+    venue: "UTRGV STEM Conference"
+    date: "April 2026"
+    type: "Poster Presentation"
+  - title: "Improving Generalization with Harmonic Aggregation in Personalized Federated Learning"
+    venue: "IEEE CCNC 2026"
+    date: "Jan 2026"
+    type: "Poster Presentation"
+awards:
+  - title: "Outstanding Thesis Award"
+    venue: "UTRGV Computer Science Department"
+    date: "2025"
+  - title: "Presidential Research Fellowship"
+    venue: "UTRGV"
+    date: "2023–2025"
+extracurriculars:
+  - title: "Program Committee Member for FLAIRS 2026 conference"
+  - title: "MIT Reality Hack Participant"
+    date: "2025"
 ---
-
-### Presentations and Posters
-- (Poster Presentation) Leveraging CCTV Networks for Efficient, Real-Time Flood Monitoring and Depth Estimation, *UTRGV STEM Conference* (April 2026)
-- (Poster Presentation) Improving Generalization with Harmonic Aggregation in Personalized Federated Learning, *IEEE CCNC 2026*
-
-### Awards and Recognitions
-- Outstanding Thesis Award, UTRGV Computer Science Department (2025)
-- Presidential Research Fellowship, UTRGV (2023–2025)
-
-### Extracurricular and Service
-- Program Committee Member for FLAIRS 2026 conference
-- MIT Reality Hack Participant (2025)

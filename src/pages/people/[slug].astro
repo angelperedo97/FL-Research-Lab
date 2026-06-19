@@ -239,6 +239,133 @@ const personProjects = allProjects.filter((proj) =>
       </div>
     )}
 
+    {person.data.presentations && person.data.presentations.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+          Presentations and Posters
+        </h3>
+        <div class="space-y-4">
+          {person.data.presentations.map((item) => (
+            <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+              <div class="space-y-1 flex-1">
+                <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                  {item.type ? `${item.type} • ` : ''}{item.date}
+                </p>
+                <h5 class="text-base font-semibold text-white leading-snug">{item.title}</h5>
+                <p class="text-sm text-orange-600/90 font-medium">
+                  {item.venue}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {person.data.awards && person.data.awards.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+          Awards and Recognitions
+        </h3>
+        <div class="space-y-4">
+          {person.data.awards.map((item) => (
+            <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+              <div class="space-y-1 flex-1">
+                <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                  Award • {item.date}
+                </p>
+                <h5 class="text-base font-semibold text-white leading-snug">{item.title}</h5>
+                <p class="text-sm text-orange-600/90 font-medium">
+                  {item.venue}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {person.data.internships && person.data.internships.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+          Internships
+        </h3>
+        <div class="space-y-4">
+          {person.data.internships.map((item) => (
+            <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+              <div class="space-y-1 flex-1">
+                <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                  Internship • {item.date}
+                </p>
+                <h5 class="text-base font-semibold text-white leading-snug">{item.title}</h5>
+                <p class="text-sm text-orange-600/90 font-medium">
+                  {item.venue}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {person.data.past_projects && person.data.past_projects.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+          Past Projects and Research
+        </h3>
+        <div class="space-y-4">
+          {person.data.past_projects.map((item) => (
+            <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+              <div class="space-y-1 flex-1">
+                <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                  Project • {item.date}
+                </p>
+                <h5 class="text-base font-semibold text-white leading-snug">{item.title}</h5>
+                <p class="text-sm text-orange-600/90 font-medium">
+                  {item.venue}
+                </p>
+                {item.description && (
+                  <p class="text-sm text-slate-400 leading-relaxed mt-2">{item.description}</p>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {person.data.extracurriculars && person.data.extracurriculars.length > 0 && (
+      <div class="mt-12">
+        <hr class="border-slate-800 my-8" />
+        <h3 class="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold mb-6">
+          Extracurricular and Service
+        </h3>
+        <div class="space-y-4">
+          {person.data.extracurriculars.map((item) => (
+            <article class="p-5 bg-[#0f172a] border border-slate-800 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all hover:border-slate-700">
+              <div class="space-y-1 flex-1">
+                {item.date && (
+                  <p class="text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+                    Extracurricular • {item.date}
+                  </p>
+                )}
+                <h5 class="text-base font-semibold text-white leading-snug">{item.title}</h5>
+                {item.venue && (
+                  <p class="text-sm text-orange-600/90 font-medium">
+                    {item.venue}
+                  </p>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
   </main>
 </BaseLayout>
 
