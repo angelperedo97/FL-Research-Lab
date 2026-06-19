@@ -8,3 +8,7 @@ github: "eenyeinchan"
 avatar: "/avatars/profile_eenc.png"
 cv: "/cvs/EiChan_Resume.pdf"
 ---
+
+### Presentations and Posters
+- (Oral Presentation) A Granularity-Centered Taxonomy of Personalized Federated Learning, *UTRGV STEM Conference* (April 2026)
+- (Poster Presentation) Bayesian Optimization of PID Coefficients for Robust Federated Learning, *TACCSTER 2025*
