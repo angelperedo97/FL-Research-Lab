@@ -5,11 +5,26 @@ import '../styles/global.css';
 
 const allPeople = await getCollection('people');
 
-// Sort so Dr. Chuprov is always first, the rest are alphabetical
-const sortedPeople = allPeople.sort((a, b) => {
-  if (a.data.name === "Dr. Sergei Chuprov") return -1;
-  if (b.data.name === "Dr. Sergei Chuprov") return 1;
-  return a.data.name.localeCompare(b.data.name);
+// Define categories based on roles
+const pi = allPeople.filter(p => p.data.name === "Dr. Sergei Chuprov");
+const phds = allPeople.filter(p => p.data.role.includes("PhD Student"));
+const grads = allPeople.filter(p => p.data.role.includes("Graduate Student"));
+const undergrads = allPeople.filter(p => p.data.role.includes("Undergraduate Student"));
+const external = []; // Placeholder for future use
+const previous = []; // Placeholder for future use
+
+const categories = [
+  { id: "pi", title: "Principal Investigator", members: pi, placeholder: false },
+  { id: "phds", title: "PhD Students", members: phds, placeholder: false },
+  { id: "grads", title: "Graduate Students", members: grads, placeholder: false },
+  { id: "undergrads", title: "Undergraduate Students", members: undergrads, placeholder: false },
+  { id: "external", title: "External Collaborators", members: external, placeholder: true },
+  { id: "previous", title: "Previous Members", members: previous, placeholder: true },
+];
+
+// Sort members alphabetically within each category
+categories.forEach(cat => {
+  cat.members.sort((a, b) => a.data.name.localeCompare(b.data.name));
 });
 
 // Extract base URL path configuration and ensure it has exactly one trailing slash for matching
@@ -24,100 +39,119 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "") + "/";
       <p class="mt-4 max-w-2xl text-slate-300">Discover the primary lab investigators, research staff, and contributors shaping the project portfolio.</p>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {sortedPeople.map((person) => {
-        // Strip "Dr. ", "Prof. ", etc. before extracting initials
-        const cleanName = person.data.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.)\s+/i, '');
-        const initials = cleanName
-          .split(' ')
-          .map(n => n[0])
-          .join('')
-          .substring(0, 2)
-          .toUpperCase();
+    {categories.map((category) => {
+      // Only render the section if there are members or it's specifically marked as a placeholder
+      if (category.members.length === 0 && !category.placeholder) return null;
 
-        // Safe path calculation replacing any accidental consecutive double slashes
-        const cleanAvatarField = person.data.avatar ? person.data.avatar.replace(/^\//, "") : "";
-        const fullAvatarPath = person.data.avatar ? `${baseUrl}${cleanAvatarField}` : '';
-        
-        const cleanCvField = person.data.cv ? person.data.cv.replace(/^\//, "") : "";
-        const fullCvPath = person.data.cv ? (person.data.cv.startsWith('http') ? person.data.cv : `${baseUrl}${cleanCvField}`) : '';
-        
-        const profileLink = `${baseUrl}people/${person.slug}`;
+      return (
+        <div class="mt-16">
+          <div class="flex items-center gap-4 mb-8">
+            <h3 class="text-xl font-bold text-white tracking-wide">{category.title}</h3>
+            <div class="h-px bg-slate-800 flex-1"></div>
+          </div>
+          
+          {category.members.length > 0 ? (
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {category.members.map((person) => {
+                // Strip "Dr. ", "Prof. ", etc. before extracting initials
+                const cleanName = person.data.name.replace(/^(Dr\.|Prof\.|Mr\.|Ms\.)\s+/i, '');
+                const initials = cleanName
+                  .split(' ')
+                  .map(n => n[0])
+                  .join('')
+                  .substring(0, 2)
+                  .toUpperCase();
 
-        return (
-          /* The article is the direct child of the grid again - Layout Restored! */
-          <article class="p-4 bg-[#0f172a] border border-slate-800 rounded-2xl flex flex-col justify-between gap-4 h-full relative group transition-all duration-200 hover:border-slate-700 hover:bg-[#111a30] shadow-sm">
-            
-            <a href={profileLink} class="absolute inset-0 z-0 rounded-2xl" aria-label={`View profile of ${person.data.name}`}></a>
+                // Safe path calculation replacing any accidental consecutive double slashes
+                const cleanAvatarField = person.data.avatar ? person.data.avatar.replace(/^\//, "") : "";
+                const fullAvatarPath = person.data.avatar ? `${baseUrl}${cleanAvatarField}` : '';
+                
+                const cleanCvField = person.data.cv ? person.data.cv.replace(/^\//, "") : "";
+                const fullCvPath = person.data.cv ? (person.data.cv.startsWith('http') ? person.data.cv : `${baseUrl}${cleanCvField}`) : '';
+                
+                const profileLink = `${baseUrl}people/${person.slug}`;
 
-            {/* Top section: Profile Info */}
-            <div class="flex items-center gap-4 relative z-10 pointer-events-none">
-              {/* Avatar or Initials Block */}
-              <div class="shrink-0">
-                {person.data.avatar ? (
-                  <img 
-                    src={fullAvatarPath} 
-                    alt={person.data.name} 
-                    class="w-16 h-16 rounded-full object-cover ring-1 ring-slate-700" 
-                  />
-                ) : (
-                  <div class="w-16 h-16 rounded-full bg-[#1e293b] text-orange-600 flex items-center justify-center text-xl font-serif font-bold ring-1 ring-slate-700">
-                    {initials}
-                  </div>
-                )}
-              </div>
-              
-              {/* Text Content Block */}
-              <div>
-                <h2 class="text-lg font-semibold text-white group-hover:text-orange-500 transition-colors duration-200">
-                  {person.data.name}
-                </h2>
-                <p class="text-sm text-orange-600">{person.data.role}</p>
-              </div>
+                return (
+                  <article class="p-4 bg-[#0f172a] border border-slate-800 rounded-2xl flex flex-col justify-between gap-4 h-full relative group transition-all duration-200 hover:border-slate-700 hover:bg-[#111a30] shadow-sm">
+                    
+                    <a href={profileLink} class="absolute inset-0 z-0 rounded-2xl" aria-label={`View profile of ${person.data.name}`}></a>
+
+                    {/* Top section: Profile Info */}
+                    <div class="flex items-center gap-4 relative z-10 pointer-events-none">
+                      {/* Avatar or Initials Block */}
+                      <div class="shrink-0">
+                        {person.data.avatar ? (
+                          <img 
+                            src={fullAvatarPath} 
+                            alt={person.data.name} 
+                            class="w-16 h-16 rounded-full object-cover ring-1 ring-slate-700" 
+                          />
+                        ) : (
+                          <div class="w-16 h-16 rounded-full bg-[#1e293b] text-orange-600 flex items-center justify-center text-xl font-serif font-bold ring-1 ring-slate-700">
+                            {initials}
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Text Content Block */}
+                      <div>
+                        <h2 class="text-lg font-semibold text-white group-hover:text-orange-500 transition-colors duration-200">
+                          {person.data.name}
+                        </h2>
+                        <p class="text-sm text-orange-600">{person.data.role}</p>
+                      </div>
+                    </div>
+
+                    {/* Bottom section: Contact Links (Kept above link layer so they stay clickable) */}
+                    <div class="flex items-center gap-3 pt-2 border-t border-slate-800/50 text-slate-400 relative z-10">
+                      
+                      {/* Email */}
+                      {person.data.email && (
+                        <a href={`mailto:${person.data.email}`} class="hover:text-orange-500 transition-colors" title="Email">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        </a>
+                      )}
+
+                      {/* Website */}
+                      {person.data.website && (
+                        <a href={person.data.website} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Website">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        </a>
+                      )}
+
+                      {/* LinkedIn */}
+                      {person.data.linkedin && (
+                        <a href={person.data.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="LinkedIn">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                      )}
+
+                      {/* Google Scholar */}
+                      {person.data.scholar && (
+                        <a href={person.data.scholar} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Google Scholar">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M6 18.8v-4L2.3 13a1 1 0 0 0-1.3 1v3.5a2.5 2.5 0 0 0 5 0z"/><path d="M21.5 13v6a2 2 0 0 1-2 2H13"/></svg>
+                        </a>
+                      )}
+
+                      {/* CV */}
+                      {person.data.cv && (
+                        <a href={fullCvPath} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Curriculum Vitae (CV)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M9 11h6"/></svg>
+                        </a>
+                      )}
+
+                    </div>
+                  </article>
+                );
+              })}
             </div>
-
-            {/* Bottom section: Contact Links (Kept above link layer so they stay clickable) */}
-            <div class="flex items-center gap-3 pt-2 border-t border-slate-800/50 text-slate-400 relative z-10">
-              
-              {/* Email */}
-              {person.data.email && (
-                <a href={`mailto:${person.data.email}`} class="hover:text-orange-500 transition-colors" title="Email">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                </a>
-              )}
-
-              {/* Website */}
-              {person.data.website && (
-                <a href={person.data.website} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Website">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                </a>
-              )}
-
-              {/* LinkedIn */}
-              {person.data.linkedin && (
-                <a href={person.data.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="LinkedIn">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-              )}
-
-              {/* Google Scholar */}
-              {person.data.scholar && (
-                <a href={person.data.scholar} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Google Scholar">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M6 18.8v-4L2.3 13a1 1 0 0 0-1.3 1v3.5a2.5 2.5 0 0 0 5 0z"/><path d="M21.5 13v6a2 2 0 0 1-2 2H13"/></svg>
-                </a>
-              )}
-
-              {/* CV */}
-              {person.data.cv && (
-                <a href={fullCvPath} target="_blank" rel="noopener noreferrer" class="hover:text-orange-500 transition-colors" title="Curriculum Vitae (CV)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 15h6"/><path d="M9 11h6"/></svg>
-                </a>
-              )}
-
+          ) : (
+            <div class="p-8 border border-dashed border-slate-800 rounded-2xl flex items-center justify-center text-slate-500 text-sm italic">
+              No members listed yet.
             </div>
-          </article>
-        );
-      })}
-    </div>
+          )}
+        </div>
+      );
+    })}
   </section>
 </BaseLayout>
