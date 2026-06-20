@@ -87,13 +87,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <script is:inline src={`${import.meta.env.BASE_URL}three.min.js`}></script>
-<script is:inline src={`${import.meta.env.BASE_URL}vanta.net.min.js`}></script>
+<script is:inline src={`${import.meta.env.BASE_URL}vanta.dots.min.js`}></script>
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
-    // Check if scripts have properly attached to the window object
-    if (window.VANTA && window.VANTA.NET) {
-      window.VANTA.NET({
+    if (window.VANTA && window.VANTA.DOTS) {
+      window.VANTA.DOTS({
         el: "#vanta-bg",
         mouseControls: true,
         touchControls: true,
@@ -102,11 +101,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         minWidth: 200.00,
         scale: 1.00,
         scaleMobile: 1.00,
-        points: 10.00,
-        maxDistance: 20.00,
-        spacing: 15.00,
+        color: 0xf05023,
         backgroundColor: 0x0b0f17,
-        color: 0xf05023
+        size: 3.00,
+        spacing: 35.00,  
+        showLines: false    // Prevents the ball of lines from appearing
       });
     } else {
       console.error("Scripts failed to load. Double-check your exact filenames in the public folder.");
