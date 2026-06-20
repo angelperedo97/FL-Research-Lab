@@ -10,7 +10,7 @@ const pi = allPeople.filter(p => p.data.name === "Dr. Sergei Chuprov");
 const phds = allPeople.filter(p => p.data.role.includes("PhD Student"));
 const grads = allPeople.filter(p => p.data.role.includes("Graduate Student"));
 const undergrads = allPeople.filter(p => p.data.role.includes("Undergraduate Student"));
-const external = []; // Placeholder for future use
+const external = allPeople.filter(p => p.data.role.includes("External Collaborator"));;
 const previous = []; // Placeholder for future use
 
 const categories = [
@@ -18,7 +18,7 @@ const categories = [
   { id: "phds", title: "PhD Students", members: phds, placeholder: false },
   { id: "grads", title: "Graduate Students", members: grads, placeholder: false },
   { id: "undergrads", title: "Undergraduate Students", members: undergrads, placeholder: false },
-  { id: "external", title: "External Collaborators", members: external, placeholder: true },
+  { id: "external", title: "External Collaborators", members: external, placeholder: false },
   { id: "previous", title: "Previous Members", members: previous, placeholder: true },
 ];
 
