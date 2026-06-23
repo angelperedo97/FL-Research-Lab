@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allResources = await getCollection('resources');
+  return allResources.map((resource) => ({
+    params: { slug: resource.slug },
+    props: { resource },
+  }));
+}
+
+const { resource } = Astro.props;
+const { Content } = await resource.render();
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<BaseLayout title={resource.data.title}>
+  <main class="max-w-4xl mx-auto px-4 py-12 text-white">
+    
+    <div class="flex flex-col items-center text-center space-y-4 mb-8">
+      <div>
+        {resource.data.icon && (
+          <span class="text-4xl mb-2 block">{resource.data.icon}</span>
+        )}
+        <h1 class="text-4xl font-bold tracking-tight">{resource.data.title}</h1>
+        <p class="mt-3 text-slate-400 max-w-xl">{resource.data.summary}</p>
+      </div>
+    </div>
+
+    <div class="prose prose-invert max-w-2xl mx-auto text-slate-300 leading-relaxed mb-12">
+      <Content />
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      <a href={`${baseUrl}/resources`} class="text-sm font-semibold text-orange-600 hover:text-orange-500 transition-colors flex items-center gap-2">
+        ← Back to Resources
+      </a>
+    </div>
+
+  </main>
+</BaseLayout>

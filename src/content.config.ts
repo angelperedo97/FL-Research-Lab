@@ -74,4 +74,13 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { people, projects, publications, news };
+const resources = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    icon: z.string().optional(), // emoji or short label for the card
+    order: z.number().optional(), // controls display order on the listing page
+  }),
+});
+
+export const collections = { people, projects, publications, news, resources };

@@ -1,72 +1,45 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import '../styles/global.css';
+
+const resources = await getCollection('resources');
+
+// Sort by order field (lowest first), then alphabetically
+const sortedResources = resources.sort((a, b) => {
+  const orderA = a.data.order ?? 999;
+  const orderB = b.data.order ?? 999;
+  if (orderA !== orderB) return orderA - orderB;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "") + "/";
 ---
 
 <BaseLayout title="Resources">
-  <section class="space-y-8">
+  <section class="space-y-6">
     
     <div class="mb-10">
-      <span class="text-xs font-bold tracking-widest text-rit-orange uppercase block mb-2">Join Us</span>
-      <h1 class="text-3xl font-black tracking-tight text-text mb-4">Getting Started in the Lab</h1>
-      <p class="text-text-dim max-w-2xl text-base leading-relaxed">
-        We are always excited to welcome dedicated students to the FL Research Lab. Because our work involves complex, distributed systems, new researchers need a solid baseline of knowledge before diving into active projects. 
-      </p>
-      <p class="text-text-dim max-w-2xl text-base leading-relaxed mt-4">
-        If you are interested in joining, please complete the following introductory materials. These resources will give you the foundational vocabulary and technical skills needed to meaningfully contribute to our meetings and research.
-      </p>
+      <span class="text-xs font-bold tracking-widest text-rit-orange uppercase block mb-2">Knowledge Base</span>
+      <h1 class="text-3xl font-black tracking-tight text-text mb-2">Resources</h1>
+      <p class="text-text-dim max-w-2xl text-base">Guides, tutorials, and reference materials for lab members and prospective researchers.</p>
     </div>
 
-    <article class="bg-bg-soft/40 border border-line p-8 rounded-xl">
-      <h2 class="text-2xl font-bold text-text mb-2">Phase 1: General AI & Machine Learning</h2>
-      <p class="text-sm text-text-dim mb-6">Before doing Federated Learning, you must understand standard, centralized Machine Learning. You do not need to be an expert, but you must conceptually grasp gradients, model updates, and heterogeneous data.</p>
-      
-      <div class="space-y-4">
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">Neural Networks Core Concepts</h3>
-          <p class="text-sm text-text-dim mt-1">Watch the <a href="https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank" rel="noopener noreferrer" class="text-rit-orange hover:underline">3Blue1Brown Neural Network YouTube playlist</a>. It provides the best visual intuition for how models learn.</p>
-        </div>
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">Practical Introduction</h3>
-          <p class="text-sm text-text-dim mt-1">Check out <a href="https://course.fast.ai/" target="_blank" rel="noopener noreferrer" class="text-rit-orange hover:underline">Fast.ai's "Practical Deep Learning for Coders"</a> to see how models are trained in practice.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="bg-bg-soft/40 border border-line p-8 rounded-xl">
-      <h2 class="text-2xl font-bold text-text mb-2">Phase 2: PyTorch Proficiency</h2>
-      <p class="text-sm text-text-dim mb-6">Our lab builds experiments using PyTorch. You must be comfortable defining models and training loops.</p>
-      
-      <div class="space-y-4">
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">PyTorch 60-Minute Blitz</h3>
-          <p class="text-sm text-text-dim mt-1">Complete the <a href="https://docs.pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html" target="_blank" rel="noopener noreferrer" class="text-rit-orange hover:underline">official PyTorch introductory tutorial</a>. Ensure you understand how tensors work and how backpropagation is applied.</p>
-        </div>
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">Baseline Task</h3>
-          <p class="text-sm text-text-dim mt-1">Build a simple Convolutional Neural Network (CNN) in a Google Colab notebook to classify the CIFAR-10 dataset. You should be able to explain your code line-by-line.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="bg-bg-soft/40 border border-line p-8 rounded-xl">
-      <h2 class="text-2xl font-bold text-text mb-2">Phase 3: Federated Learning</h2>
-      <p class="text-sm text-text-dim mb-6">Once you understand centralized training, you are ready to learn how we train models across decentralized edge devices.</p>
-      
-      <div class="space-y-4">
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">1. The Concept</h3>
-          <p class="text-sm text-text-dim mt-1">Read the <a href="https://en.wikipedia.org/wiki/Federated_learning" target="_blank" rel="noopener noreferrer" class="text-rit-orange hover:underline">Wikipedia page on Federated Learning</a> to understand the motivation, privacy benefits, and the difference between centralized and decentralized training.</p>
-        </div>
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">2. The Practice</h3>
-          <p class="text-sm text-text-dim mt-1">Follow the tutorial from the <a href="https://flower.ai/docs/framework/tutorial-series-what-is-federated-learning.html" target="_blank" rel="noopener noreferrer" class="text-rit-orange hover:underline">Flower documentation</a> to see how client-server weight updates work in code.</p>
-        </div>
-        <div class="border-l-2 border-rit-orange pl-4">
-          <h3 class="font-bold text-text">3. The Theory</h3>
-          <p class="text-sm text-text-dim mt-1">Read the original paper: <a href="https://arxiv.org/pdf/1602.05629" target="_blank" rel="noopener noreferrer" class="text-rit-orange hover:underline">"Communication-Efficient Learning of Deep Networks from Decentralized Data"</a> (McMahan et al., 2017). Focus on understanding the FedAvg algorithm.</p>
-        </div>
-      </div>
-    </article>
-
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2">
+      {sortedResources.map((resource) => (
+        <a href={`${baseUrl}resources/${resource.slug}`} class="block group h-full no-underline">
+          <article class="bg-bg-soft/40 border border-line p-6 rounded-xl flex flex-col justify-between min-h-[160px] h-full transition-all duration-200 group-hover:border-slate-500 group-hover:bg-[#111a30] shadow-sm">
+            <div>
+              {resource.data.icon && (
+                <span class="text-2xl mb-3 block">{resource.data.icon}</span>
+              )}
+              <h2 class="text-xl font-bold text-text mb-1 group-hover:text-orange-500 transition-colors duration-200">{resource.data.title}</h2>
+              <p class="text-sm text-text-dim leading-relaxed">{resource.data.summary}</p>
+            </div>
+          </article>
+        </a>
+      ))}
+    </div>
+    
   </section>
 </BaseLayout>
